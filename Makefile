@@ -1,32 +1,33 @@
 # Agentic-coding model tracker — the Makefile is the only interface.
 # Code and data are versioned separately: VERSION / data_version, tags code-v* / data-v*.
 
-PY      ?= python3
-CV      := $(shell cat VERSION)
-DV      := $(shell $(PY) -c "import json;print(json.load(open('data/agentic-model-timeline.json'))['data_version'])")
+CV      := $(file <VERSION)
+DV      := $(shell sed -n 's/^[[:space:]]*"data_version":[[:space:]]*"\([^"]*\)".*/\1/p' data/agentic-model-timeline.json)
 STAMP   := c$(CV)_d$(DV)
 OUT     := out
 VERIFY  := /tmp/verifica
 
-.PHONY: all check build test clean package verify release-code release-data versions docker
+.PHONY: all check build test clean package verify release-code release-data versions docker docker-image
 
 all: build test
 
 versions:
 	@echo "code v$(CV)  data v$(DV)"
 
-check:
-	$(PY) tools/build.py check
+check: docker-image
 
-build:
-	$(PY) tools/build.py build
+build: docker-image
+	@set -eu; \
+	container=$$(docker create agentic-tracker:$(STAMP) /unused); \
+	trap 'docker rm -f "$$container" >/dev/null' EXIT; \
+	mkdir -p dist; \
+	docker cp "$$container:/app/dist/agentic-model-timeline.html" dist/agentic-model-timeline.html; \
+	docker cp "$$container:/app/CHANGELOG.data.md" CHANGELOG.data.md
 
-node_modules: package.json
-	npm install --no-audit --no-fund --silent
-	@touch node_modules
+docker-image:
+	docker build -t agentic-tracker:$(STAMP) .
 
-test: build node_modules
-	node --test test/*.test.mjs
+test: build
 
 # BUMP=major|minor|patch  MSG="what changed"
 release-code: test
@@ -54,10 +55,12 @@ verify: package
 	@echo "verify ok: $(STAMP)"
 
 docker:
-	docker build -t agentic-tracker:$(STAMP) .
-	docker create --name at-export agentic-tracker:$(STAMP) >/dev/null
-	mkdir -p $(OUT) && docker cp at-export:/app/dist/agentic-model-timeline.html $(OUT)/agentic-model-timeline_$(STAMP).docker.html
-	docker rm at-export >/dev/null
+	docker-image
+	@set -eu; \
+	container=$$(docker create agentic-tracker:$(STAMP) /unused); \
+	trap 'docker rm -f "$$container" >/dev/null' EXIT; \
+	mkdir -p $(OUT); \
+	docker cp "$$container:/app/dist/agentic-model-timeline.html" $(OUT)/agentic-model-timeline_$(STAMP).docker.html
 
 clean:
-	rm -rf dist out node_modules
+	rm -rf dist out

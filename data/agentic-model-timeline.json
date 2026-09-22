@@ -1,10 +1,10 @@
 {
   "schema_version": "1.2",
-  "data_version": "1.2.1",
-  "generated_at": "2026-09-22",
+  "data_version": "1.2.2",
+  "generated_at": "2026-09-23",
   "window": {
     "from": "2026-01-01",
-    "to": "2026-09-22"
+    "to": "2026-09-23"
   },
   "benchmarks": {
     "tb21": {
@@ -1675,13 +1675,13 @@
           "effort": "xhigh",
           "source": "https://deepswe.datacurve.ai/",
           "confidence": "high",
-          "cost_per_task": 6.52
+          "cost_per_task": 4.43
         }
       },
       "notes": "Leads the standardized vals.ai TB 2.1 board, with its edge concentrated in the hard split (87.78 vs 84.44 for Sol and Opus 5). Staged rollout from 2026-09-03; knowledge cutoff 2026-04-30. Meets the Critical cybersecurity threshold under OpenAI's Preparedness Framework, so the public model refuses advanced cyber tasks. 128K max output, text and image input.",
       "sources": [
-        "https://www.yottalabs.ai/post/gpt-6-release-date-rumors-what-is-known-2026",
-        "https://en.wikipedia.org/wiki/GPT-6_Astra"
+        "https://openai.com/index/gpt-6-astra/",
+        "https://developers.openai.com/api/docs/models"
       ],
       "copilot": {
         "available": true,
@@ -1697,6 +1697,96 @@
           "cached_input": 2.0,
           "cache_write": 25.0,
           "output": 75.0
+        },
+        "promo": null,
+        "source": "github-copilot-pricing"
+      }
+    },
+    {
+      "id": "openai-gpt-6-sol",
+      "vendor": "OpenAI",
+      "name": "GPT-6 Sol",
+      "tier": "flagship",
+      "released": "2026-09-22",
+      "availability": "ga",
+      "anchor": false,
+      "context_window": 1050000,
+      "price_in": 2.0,
+      "price_out": 10.0,
+      "scores": {
+        "deepswe": {
+          "value": 68.8,
+          "vendor_value": 68.8,
+          "harness": "OpenAI report, DeepSWE v1.1",
+          "effort": "max",
+          "source": "https://openai.com/index/introducing-gpt-6-sol-and-luna/",
+          "confidence": "low"
+        }
+      },
+      "notes": "Released September 22, 2026; API model ID gpt-6-sol. OpenAI reports 68.8% on DeepSWE v1.1 at max effort. Datacurve had not yet published an independent GPT-6 run when checked.",
+      "sources": [
+        "https://openai.com/index/introducing-gpt-6-sol-and-luna/",
+        "https://developers.openai.com/api/docs/models"
+      ],
+      "copilot": {
+        "available": true,
+        "release_status": "GA",
+        "category": "Powerful",
+        "input": 2.0,
+        "cached_input": 0.2,
+        "cache_write": 2.5,
+        "output": 10.0,
+        "long_context": {
+          "threshold": 272000,
+          "input": 4.0,
+          "cached_input": 0.4,
+          "cache_write": 5.0,
+          "output": 15.0
+        },
+        "promo": null,
+        "source": "github-copilot-pricing"
+      }
+    },
+    {
+      "id": "openai-gpt-6-luna",
+      "vendor": "OpenAI",
+      "name": "GPT-6 Luna",
+      "tier": "efficient",
+      "released": "2026-09-22",
+      "availability": "ga",
+      "anchor": false,
+      "context_window": 1050000,
+      "price_in": 0.1,
+      "price_out": 0.5,
+      "scores": {
+        "deepswe": {
+          "value": 66.6,
+          "vendor_value": 66.6,
+          "harness": "OpenAI report, DeepSWE v1.1",
+          "effort": "max",
+          "source": "https://openai.com/index/introducing-gpt-6-sol-and-luna/",
+          "confidence": "low"
+        }
+      },
+      "notes": "Released September 22, 2026; API model ID gpt-6-luna. OpenAI reports 66.6% on DeepSWE v1.1 at max effort. Datacurve had not yet published an independent GPT-6 run when checked.",
+      "sources": [
+        "https://openai.com/index/introducing-gpt-6-sol-and-luna/",
+        "https://developers.openai.com/api/docs/models"
+      ],
+      "copilot": {
+        "available": true,
+        "release_status": "GA",
+        "category": "Lightweight",
+        "input": 0.1,
+        "cached_input": 0.01,
+        "cache_write": 0.125,
+        "output": 0.5,
+        "long_context": {
+          "threshold": 272000,
+          "input": 0.2,
+          "cached_input": 0.02,
+          "cache_write": 0.25,
+          "output": 0.75
         },
         "promo": null,
         "source": "github-copilot-pricing"
@@ -1932,6 +2022,12 @@
       "date": "2026-09-22",
       "snapshot": true,
       "change": "Added data_version and per-entry versions to the changelog. No model, score or price changed. Versions 1.0.0 to 1.2.0 are reconstructed from the session history; 1.2.1 is the first version with a file snapshot."
+    },
+    {
+      "version": "1.2.2",
+      "date": "2026-09-23",
+      "snapshot": true,
+      "change": "Added GPT-6 Sol and GPT-6 Luna from OpenAI's September 22 announcement, including official DeepSWE v1.1 results and refreshed Copilot rates. Replaced GPT-6 Astra rumor citations with OpenAI primary sources and refreshed its DeepSWE cost per task."
     }
   ],
   "sources": [
@@ -1940,7 +2036,7 @@
       "title": "Models and pricing for GitHub Copilot",
       "publisher": "GitHub Docs",
       "url": "https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing",
-      "accessed": "2026-09-22",
+      "accessed": "2026-09-23",
       "type": "vendor-docs",
       "use": "Copilot per-token rates, release status, category and long-context thresholds for every model in the Copilot catalogue"
     },
@@ -2057,9 +2153,9 @@
       "title": "OpenAI release index",
       "publisher": "OpenAI",
       "url": "https://openai.com/research/index/release/",
-      "accessed": "2026-09-05",
+      "accessed": "2026-09-23",
       "type": "vendor-announcement",
-      "use": "GPT-5.5, GPT-5.6 and GPT-Live release dates"
+      "use": "OpenAI release dates and model announcements, including GPT-6 family releases"
     },
     {
       "id": "openai-gpt55",
@@ -2075,18 +2171,27 @@
       "title": "GPT-6 Astra: a new generation of intelligence",
       "publisher": "OpenAI",
       "url": "https://openai.com/index/gpt-6-astra/",
-      "accessed": "2026-09-05",
+      "accessed": "2026-09-23",
       "type": "vendor-announcement",
       "use": "Astra capabilities, evaluation caveats, cyber gating"
     },
     {
-      "id": "yotta-astra",
-      "title": "GPT-6 Astra: release date, pricing, benchmarks, rollout",
-      "publisher": "Yotta Labs",
-      "url": "https://www.yottalabs.ai/post/gpt-6-release-date-rumors-what-is-known-2026",
-      "accessed": "2026-09-05",
-      "type": "press",
-      "use": "Astra rate card, context window, staged rollout"
+      "id": "openai-gpt6-sol-luna",
+      "title": "Introducing GPT-6 Sol and Luna",
+      "publisher": "OpenAI",
+      "url": "https://openai.com/index/introducing-gpt-6-sol-and-luna/",
+      "accessed": "2026-09-23",
+      "type": "vendor-announcement",
+      "use": "Sol and Luna launch date, API prices, DeepSWE v1.1 scores and availability"
+    },
+    {
+      "id": "openai-api-models",
+      "title": "Models | OpenAI API",
+      "publisher": "OpenAI",
+      "url": "https://developers.openai.com/api/docs/models",
+      "accessed": "2026-09-23",
+      "type": "vendor-docs",
+      "use": "GPT-6 API model IDs, context windows and standard prices"
     },
     {
       "id": "aa-gpt56",
@@ -2246,7 +2351,7 @@
       "title": "Terminal-Bench 4.0 official leaderboard",
       "publisher": "Harbor Framework / tbench.ai",
       "url": "https://hub.harborframework.com/datasets/terminal-bench/terminal-bench/latest?tab=leaderboard&leaderboard=4-0-0",
-      "accessed": "2026-09-22",
+      "accessed": "2026-09-23",
       "type": "standardized-eval",
       "use": "TB 4.0 scores with each vendor's agent harness"
     },
@@ -2264,7 +2369,7 @@
       "title": "Terminal-Bench 4.0",
       "publisher": "Vals AI",
       "url": "https://www.vals.ai/benchmarks/terminal-bench-4",
-      "accessed": "2026-09-22",
+      "accessed": "2026-09-23",
       "type": "standardized-eval",
       "use": "TB 4.0 under one Terminus 2 harness for every model; cost per task"
     },
@@ -2273,7 +2378,7 @@
       "title": "DeepSWE v1.1 leaderboard",
       "publisher": "Datacurve",
       "url": "https://deepswe.datacurve.ai/",
-      "accessed": "2026-09-22",
+      "accessed": "2026-09-23",
       "type": "standardized-eval",
       "use": "Long-horizon SWE, one harness for all models, pass@1 with cost per task"
     },
@@ -2366,19 +2471,19 @@
   ],
   "copilot_meta": {
     "source": "github-copilot-pricing",
-    "fetched": "2026-09-22",
+    "fetched": "2026-09-23",
     "billing": "Usage-based, priced per million tokens. Input, cached input and output tokens convert to GitHub AI Credits at each model's published rate, 1 AI credit = $0.01. Individual plans (Free, Pro, Pro+, Max) carry their own credit allowance; Business and Enterprise allowances are per-user and pooled at the billing entity. Usage past the allowance bills at the rates below. Code completions and next edit suggestions are not billed in AI credits.",
     "plans": {
       "Individual": "Free, Pro, Pro+, Max",
       "Organization": "Business and Enterprise, pooled allowances"
     },
-    "notes": [
+      "notes": [
       "GitHub states its rates match what the providers charge directly, with no markup on the model layer.",
       "Gemini 3.6, 3.7 and 3.8 Flash all sit at $0.75 input and $3.75 output on a promotional rate that ends 2026-12-31.",
-      "GPT-5.6 Sol, Terra, Luna and GPT-6 Astra carry a cache write cost on top of cached input. Earlier OpenAI models do not. Anthropic models all do.",
+        "GPT-5.6 Sol, Terra, Luna and GPT-6 Astra, Sol and Luna carry a cache write cost on top of cached input. Earlier OpenAI models do not. Anthropic models all do.",
       "Copilot code review does not disclose which model it picks, so its per-token cost varies between reviews, and it also consumes GitHub Actions minutes.",
       "Legacy annual Copilot Pro and Pro+ plans on request-based billing still use model multipliers; every current plan is per-token.",
-      "Between 2026-09-05 and 2026-09-22 the table added Grok 4.7 and dropped MAI-Code-1-Flash. Every other rate is unchanged."
+        "Between 2026-09-05 and 2026-09-23 the table added Grok 4.7 and GPT-6 Sol and Luna, and dropped MAI-Code-1-Flash. Other model rates were unchanged."
     ],
     "sources": [
       "github-copilot-pricing",

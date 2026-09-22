@@ -4,6 +4,10 @@ Generated from `data/agentic-model-timeline.json` by `tools/build.py`. Do not ed
 
 Versions marked *reconstructed* were rebuilt from session history; no file snapshot exists for them.
 
+## 1.2.2 — 2026-09-23
+
+Added GPT-6 Sol and GPT-6 Luna from OpenAI's September 22 announcement, including official DeepSWE v1.1 results and refreshed Copilot rates. Replaced GPT-6 Astra rumor citations with OpenAI primary sources and refreshed its DeepSWE cost per task.
+
 ## 1.2.1 — 2026-09-22
 
 Added data_version and per-entry versions to the changelog. No model, score or price changed. Versions 1.0.0 to 1.2.0 are reconstructed from the session history; 1.2.1 is the first version with a file snapshot.

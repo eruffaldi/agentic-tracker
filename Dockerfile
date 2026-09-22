@@ -9,3 +9,4 @@ RUN python3 tools/build.py build && node --test test/*.test.mjs
 
 FROM scratch AS artifact
 COPY --from=build /app/dist/agentic-model-timeline.html /app/dist/agentic-model-timeline.html
+COPY --from=build /app/CHANGELOG.data.md /app/CHANGELOG.data.md
