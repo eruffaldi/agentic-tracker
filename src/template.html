@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="tracker-code-version" content="{{CODE_VERSION}}">
+<title>Agentic coding capability and price, Jan–Sep 2026</title>
+<style>
+{{STYLE}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="stamp"><span>Agentic coding capability and price</span><span id="stamp-date"></span></div>
+  <h1>Cheap models match flagships on coding. Not yet on long work.</h1>
+  <p class="standfirst">Every Anthropic, OpenAI, Google and xAI release from 1 January 2026 to today, against the benchmarks that predict agentic coding — and against what GitHub Copilot actually charges for them. Switch between DeepSWE and Terminal-Bench 4.0 to see where the budget tier holds up and where it falls away.</p>
+</header>
+
+<div class="controls">
+  <div class="seg" id="view-seg" role="group" aria-label="View"></div>
+  <div class="seg" id="bench-seg" role="group" aria-label="Benchmark"></div>
+  <div class="seg" id="vendor-seg" role="group" aria-label="Vendor"></div>
+</div>
+
+<div class="plot"><svg id="chart" role="img" aria-label="Chart"></svg></div>
+<p class="caption" id="caption"></p>
+
+<div class="legend">
+  <span><i class="sw sq" style="background:var(--anthropic)"></i>Anthropic</span>
+  <span><i class="sw sq" style="background:var(--openai)"></i>OpenAI</span>
+  <span><i class="sw sq" style="background:var(--google)"></i>Google</span>
+  <span><i class="sw sq" style="background:var(--xai)"></i>xAI</span>
+  <span><i class="sw sq" style="background:var(--muted)"></i>frontier / flagship</span>
+  <span><i class="sw ci"></i>mid / efficient tier</span>
+</div>
+
+<h2>The descent ledger</h2>
+<p>Each budget or mid-tier model, matched to the most recent earlier flagship it equals or beats on the selected benchmark. Release dates come from the vendor announcements; the price gap is what GitHub Copilot charges per million output tokens, so it reflects a bill you could actually receive rather than a list price.</p>
+<table><thead><tr><th>Cheap model</th><th>Beats</th><th>Released later</th><th>Output price</th></tr></thead><tbody id="ledger-body"></tbody></table>
+
+<h2>What the numbers say</h2>
+<div class="cards" id="cards"></div>
+
+<h2>What Copilot charges</h2>
+<p id="cp-intro"></p>
+<table><thead><tr><th>Model</th><th>Copilot bucket</th><th>Output per 1M</th><th>Output above threshold</th></tr></thead><tbody id="cp-body"></tbody></table>
+
+<h2>Release cadence</h2>
+<p>Dashed outlines are restricted or preview access: they set the ceiling but you cannot ship on them.</p>
+<div class="lanes" id="lanes"></div>
+
+<h2>Where the data fights itself</h2>
+<ul class="notes" id="conflicts"></ul>
+
+<h2>Sources</h2>
+<p id="src-intro"></p>
+<div id="sources"></div>
+
+<details>
+  <summary>Re-render from updated JSON</summary>
+  <p style="font-size:13.5px;color:var(--muted);margin:8px 0 0">Run the collection prompt again, paste the JSON it returns, and this page redraws against the new data. Nothing is sent anywhere.</p>
+  <textarea id="paste" placeholder="paste agentic-model-timeline.json"></textarea>
+  <button class="go" id="apply">Redraw</button>
+  <div class="msg" id="msg"></div>
+</details>
+
+<footer id="foot"></footer>
+</div>
+
+<script id="data" type="application/json">{{DATA}}</script>
+<script>
+{{APP}}</script>
+</body>
+</html>

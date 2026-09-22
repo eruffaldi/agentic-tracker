@@ -1,0 +1,2388 @@
+{
+  "schema_version": "1.2",
+  "data_version": "1.2.1",
+  "generated_at": "2026-09-22",
+  "window": {
+    "from": "2026-01-01",
+    "to": "2026-09-22"
+  },
+  "benchmarks": {
+    "tb21": {
+      "name": "Terminal-Bench",
+      "version": "2.1",
+      "what_it_measures": "89 sandboxed terminal tasks, easy/medium/hard, pass@1 under an agent harness",
+      "caveat": "Saturating: the top of the board now clusters at 85-91%. Kept for continuity; prefer TB 4.0 or DeepSWE for ranking. Not comparable to 2.0 or 4.0."
+    },
+    "tb20": {
+      "name": "Terminal-Bench",
+      "version": "2.0",
+      "what_it_measures": "Predecessor task set; 28 of 89 tasks were repaired in 2.1",
+      "caveat": "Kept only for models that never got a 2.1 run."
+    },
+    "swe_pro": {
+      "name": "SWE-bench Pro",
+      "version": "2026",
+      "what_it_measures": "Repo-level issue resolution on maintained repos with no public ground truth",
+      "caveat": "Three incompatible score families: vendor aggregate, Scale public set, Scale commercial set. Values here are the vendor aggregate unless noted."
+    },
+    "swe_verified": {
+      "name": "SWE-bench Verified",
+      "version": "2024",
+      "what_it_measures": "500 human-verified GitHub issues, mostly Django/Flask/scikit-learn",
+      "caveat": "Saturated and contaminated; top models cluster within 1 point. Do not rank on this."
+    },
+    "programbench": {
+      "name": "ProgramBench",
+      "version": "2026",
+      "what_it_measures": "Score paired with measured $ cost per task on one harness",
+      "caveat": "Best available cost-normalized view; single evaluator, so treat gaps under 3 points as noise."
+    },
+    "tb40": {
+      "name": "Terminal-Bench",
+      "version": "4.0",
+      "what_it_measures": "66 new long-horizon tasks (median ~4h expert time, 8h agent limit) across software, science, ML, ops, hardware, security, media",
+      "caveat": "Released 2026-09-01. No overlap with 2.1. Official leaderboard rows pair each model with its vendor harness (Codex, Claude Code, Grok Build); Gemini rows use mini-SWE-agent, a handicap. Roughly three quarters of tasks are outside classic software engineering."
+    },
+    "deepswe": {
+      "name": "DeepSWE",
+      "version": "1.1",
+      "what_it_measures": "113 contamination-free long-horizon SWE tasks across 91 repos and 5 languages, one harness (mini-swe-agent) for every model, with measured cost per task",
+      "caveat": "Best cross-vendor comparability available: same harness, same verifier. Top three sit within confidence intervals of each other."
+    }
+  },
+  "models": [
+    {
+      "id": "anthropic-haiku-4-5",
+      "vendor": "Anthropic",
+      "name": "Claude Haiku 4.5",
+      "tier": "efficient",
+      "released": "2025-10-15",
+      "availability": "ga",
+      "anchor": true,
+      "context_window": 200000,
+      "price_in": 1.0,
+      "price_out": 5.0,
+      "scores": {
+        "programbench": {
+          "value": 30.0,
+          "vendor_value": null,
+          "harness": "ProgramBench",
+          "effort": "default",
+          "source": "https://programbench.com/",
+          "confidence": "medium"
+        }
+      },
+      "notes": "Anthropic shipped no new Haiku-tier model in the window. The cheap Anthropic lane is 11 months stale as of this snapshot.",
+      "sources": [
+        "https://programbench.com/"
+      ],
+      "copilot": {
+        "available": true,
+        "release_status": "GA",
+        "category": "Versatile",
+        "input": 1.0,
+        "cached_input": 0.1,
+        "cache_write": 1.25,
+        "output": 5.0,
+        "long_context": null,
+        "promo": null,
+        "source": "github-copilot-pricing"
+      }
+    },
+    {
+      "id": "google-gemini-3-flash",
+      "vendor": "Google",
+      "name": "Gemini 3 Flash",
+      "tier": "efficient",
+      "released": "2025-12-17",
+      "availability": "ga",
+      "anchor": true,
+      "context_window": 1048576,
+      "price_in": 0.5,
+      "price_out": 3.0,
+      "scores": {
+        "programbench": {
+          "value": 31.8,
+          "vendor_value": null,
+          "harness": "ProgramBench",
+          "effort": "default",
+          "source": "https://programbench.com/",
+          "confidence": "medium"
+        }
+      },
+      "notes": "Baseline for the Flash line's climb through 2026.",
+      "sources": [
+        "https://programbench.com/"
+      ],
+      "copilot": {
+        "available": false,
+        "note": "Not in the Copilot table as of 2026-09-05.",
+        "source": "github-copilot-pricing"
+      }
+    },
+    {
+      "id": "anthropic-opus-4-6",
+      "vendor": "Anthropic",
+      "name": "Claude Opus 4.6",
+      "tier": "flagship",
+      "released": "2026-02-05",
+      "availability": "ga",
+      "anchor": false,
+      "context_window": 1000000,
+      "price_in": 5.0,
+      "price_out": 25.0,
+      "scores": {
+        "swe_verified": {
+          "value": 80.8,
+          "vendor_value": 80.8,
+          "harness": "Anthropic",
+          "effort": "thinking",
+          "source": "https://gist.github.com/mbijon/bf97d677f050d36f2d52b2f3fbd43f17",
+          "confidence": "high"
+        },
+        "swe_pro": {
+          "value": 53.4,
+          "vendor_value": 53.4,
+          "harness": "Anthropic",
+          "effort": "thinking",
+          "source": "https://gist.github.com/mbijon/bf97d677f050d36f2d52b2f3fbd43f17",
+          "confidence": "high"
+        },
+        "tb20": {
+          "value": 65.4,
+          "vendor_value": 65.4,
+          "harness": "Anthropic",
+          "effort": "thinking",
+          "source": "https://www.morphllm.com/claude-benchmarks",
+          "confidence": "high"
+        },
+        "programbench": {
+          "value": 52.1,
+          "vendor_value": null,
+          "harness": "ProgramBench",
+          "effort": "default",
+          "source": "https://programbench.com/",
+          "confidence": "medium"
+        }
+      },
+      "notes": "1M context, 14.5h stated task-completion window. Still the top Claude entry on Scale's standardized SEAL board (51.9 public / 47.1 commercial) because later Claude models were never run there.",
+      "sources": [
+        "https://www.morphllm.com/claude-benchmarks",
+        "https://www.the-ai-corner.com/p/everything-claude-shipped-2026-complete-guide"
+      ],
+      "copilot": {
+        "available": false,
+        "note": "Removed from the Copilot table; retired 2026-09-01, replaced by Opus 4.7, 4.8 or 5.",
+        "source": "github-copilot-pricing"
+      }
+    },
+    {
+      "id": "openai-gpt-5-3-codex",
+      "vendor": "OpenAI",
+      "name": "GPT-5.3-Codex",
+      "tier": "coding",
+      "released": "2026-02-05",
+      "availability": "ga",
+      "anchor": false,
+      "context_window": null,
+      "price_in": 1.75,
+      "price_out": 14.0,
+      "scores": {},
+      "notes": "Codex-lane release positioned directly against Opus 4.6; no published Terminal-Bench or SWE-bench Pro figure.",
+      "sources": [
+        "https://en.wikipedia.org/wiki/GPT-5.3-Codex"
+      ],
+      "copilot": {
+        "available": true,
+        "release_status": "GA",
+        "category": "Powerful",
+        "input": 1.75,
+        "cached_input": 0.175,
+        "cache_write": null,
+        "output": 14.0,
+        "long_context": null,
+        "promo": null,
+        "source": "github-copilot-pricing"
+      }
+    },
+    {
+      "id": "google-gemini-3-deep-think",
+      "vendor": "Google",
+      "name": "Gemini 3 Deep Think",
+      "tier": "frontier",
+      "released": "2026-02-12",
+      "availability": "ga",
+      "anchor": false,
+      "context_window": 1048576,
+      "price_in": null,
+      "price_out": null,
+      "scores": {},
+      "notes": "AI Ultra tier only. No published agentic-coding score.",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Google_Gemini"
+      ],
+      "copilot": {
+        "available": false,
+        "note": "Not in the Copilot table as of 2026-09-05.",
+        "source": "github-copilot-pricing"
+      }
+    },
+    {
+      "id": "anthropic-sonnet-4-6",
+      "vendor": "Anthropic",
+      "name": "Claude Sonnet 4.6",
+      "tier": "mid",
+      "released": "2026-02-17",
+      "availability": "ga",
+      "anchor": false,
+      "context_window": 1000000,
+      "price_in": 3.0,
+      "price_out": 15.0,
+      "scores": {
+        "swe_verified": {
+          "value": 79.6,
+          "vendor_value": 79.6,
+          "harness": "Anthropic",
+          "effort": "thinking",
+          "source": "https://gist.github.com/mbijon/bf97d677f050d36f2d52b2f3fbd43f17",
+          "confidence": "high"
+        },
+        "tb20": {
+          "value": 59.1,
+          "vendor_value": 59.1,
+          "harness": "Anthropic",
+          "effort": "thinking",
+          "source": "https://gist.github.com/mbijon/bf97d677f050d36f2d52b2f3fbd43f17",
+          "confidence": "high"
+        },
+        "programbench": {
+          "value": 47.5,
+          "vendor_value": null,
+          "harness": "ProgramBench",
+          "effort": "default",
+          "source": "https://programbench.com/",
+          "confidence": "medium"
+        }
+      },
+      "notes": "First Sonnet within 1.2 points of the concurrent Opus on SWE-bench Verified.",
+      "sources": [
+        "https://techiefied.com/claude-version-history/"
+      ],
+      "copilot": {
+        "available": true,
+        "release_status": "GA",
+        "category": "Versatile",
+        "input": 3.0,
+        "cached_input": 0.3,
+        "cache_write": 3.75,
+        "output": 15.0,
+        "long_context": null,
+        "promo": null,
+        "source": "github-copilot-pricing"
+      }
+    },
+    {
+      "id": "google-gemini-3-1-pro",
+      "vendor": "Google",
+      "name": "Gemini 3.1 Pro",
+      "tier": "flagship",
+      "released": "2026-02-19",
+      "availability": "preview",
+      "anchor": false,
+      "context_window": 1048576,
+      "price_in": 2.0,
+      "price_out": 12.0,
+      "scores": {
+        "swe_verified": {
+          "value": 80.6,
+          "vendor_value": 80.6,
+          "harness": "Google",
+          "effort": "default",
+          "source": "https://gist.github.com/mbijon/bf97d677f050d36f2d52b2f3fbd43f17",
+          "confidence": "high"
+        },
+        "swe_pro": {
+          "value": 54.2,
+          "vendor_value": 54.2,
+          "harness": "Google",
+          "effort": "default",
+          "source": "https://gist.github.com/mbijon/bf97d677f050d36f2d52b2f3fbd43f17",
+          "confidence": "high"
+        },
+        "tb20": {
+          "value": 68.5,
+          "vendor_value": 68.5,
+          "harness": "Google",
+          "effort": "default",
+          "source": "https://gist.github.com/mbijon/bf97d677f050d36f2d52b2f3fbd43f17",
+          "confidence": "high"
+        },
+        "programbench": {
+          "value": 36.6,
+          "vendor_value": null,
+          "harness": "ProgramBench",
+          "effort": "default",
+          "source": "https://programbench.com/",
+          "confidence": "medium"
+        }
+      },
+      "notes": "Still Google's Pro-line flagship on 2026-09-05, seven months later. Gemini 3.5 Pro was announced at I/O for June and has been delayed indefinitely, reportedly over coding performance.",
+      "sources": [
+        "https://codersera.com/blog/gemini-3-5-complete-guide-2026/",
+        "https://en.wikipedia.org/wiki/Google_Gemini"
+      ],
+      "copilot": {
+        "available": false,
+        "note": "Removed from the Copilot table; retired 2026-09-01, replaced by Gemini 3.7 Flash.",
+        "source": "github-copilot-pricing"
+      }
+    },
+    {
+      "id": "openai-gpt-5-4",
+      "vendor": "OpenAI",
+      "name": "GPT-5.4",
+      "tier": "flagship",
+      "released": "2026-03-05",
+      "availability": "ga",
+      "anchor": false,
+      "context_window": null,
+      "price_in": 2.5,
+      "price_out": 15.0,
+      "scores": {
+        "swe_verified": {
+          "value": 77.2,
+          "vendor_value": 77.2,
+          "harness": "OpenAI",
+          "effort": "high",
+          "source": "https://gist.github.com/mbijon/bf97d677f050d36f2d52b2f3fbd43f17",
+          "confidence": "medium"
+        },
+        "swe_pro": {
+          "value": 57.7,
+          "vendor_value": 57.7,
+          "harness": "OpenAI",
+          "effort": "high",
+          "source": "https://gist.github.com/mbijon/bf97d677f050d36f2d52b2f3fbd43f17",
+          "confidence": "medium"
+        },
+        "tb20": {
+          "value": 75.1,
+          "vendor_value": 75.1,
+          "harness": "OpenAI",
+          "effort": "high",
+          "source": "https://gist.github.com/mbijon/bf97d677f050d36f2d52b2f3fbd43f17",
+          "confidence": "medium"
+        },
+        "programbench": {
+          "value": 37.7,
+          "vendor_value": null,
+          "harness": "ProgramBench",
+          "effort": "default",
+          "source": "https://programbench.com/",
+          "confidence": "medium"
+        }
+      },
+      "notes": "GPT-5.4 xHigh holds the best score on Scale's standardized public SWE-bench Pro set at 59.1 as of 2026-08-10, above every model with a higher vendor-reported number. Mini and nano followed 2026-03-17.",
+      "sources": [
+        "https://en.wikipedia.org/wiki/GPT-5.4",
+        "https://www.morphllm.com/swe-bench-pro"
+      ],
+      "copilot": {
+        "available": true,
+        "release_status": "GA",
+        "category": "Versatile",
+        "input": 2.5,
+        "cached_input": 0.25,
+        "cache_write": null,
+        "output": 15.0,
+        "long_context": {
+          "threshold": 272000,
+          "input": 5.0,
+          "cached_input": 0.5,
+          "output": 22.5
+        },
+        "promo": null,
+        "source": "github-copilot-pricing"
+      }
+    },
+    {
+      "id": "anthropic-mythos-preview",
+      "vendor": "Anthropic",
+      "name": "Claude Mythos Preview",
+      "tier": "frontier",
+      "released": "2026-04-07",
+      "availability": "restricted",
+      "anchor": false,
+      "context_window": 1000000,
+      "price_in": null,
+      "price_out": null,
+      "scores": {
+        "swe_pro": {
+          "value": 77.8,
+          "vendor_value": 77.8,
+          "harness": "Anthropic",
+          "effort": "default",
+          "source": "https://www.morphllm.com/swe-bench-pro",
+          "confidence": "medium"
+        }
+      },
+      "notes": "Project Glasswing trusted-access only, withheld over vulnerability-discovery capability. Sets the ceiling but is not deployable.",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Claude_Mythos"
+      ],
+      "copilot": {
+        "available": false,
+        "note": "Restricted access; never in Copilot.",
+        "source": "github-copilot-pricing"
+      }
+    },
+    {
+      "id": "anthropic-opus-4-7",
+      "vendor": "Anthropic",
+      "name": "Claude Opus 4.7",
+      "tier": "flagship",
+      "released": "2026-04-16",
+      "availability": "ga",
+      "anchor": false,
+      "context_window": 1000000,
+      "price_in": 5.0,
+      "price_out": 25.0,
+      "scores": {
+        "swe_verified": {
+          "value": 87.6,
+          "vendor_value": 87.6,
+          "harness": "Anthropic",
+          "effort": "xhigh",
+          "source": "https://gist.github.com/mbijon/bf97d677f050d36f2d52b2f3fbd43f17",
+          "confidence": "high"
+        },
+        "swe_pro": {
+          "value": 64.3,
+          "vendor_value": 64.3,
+          "harness": "Anthropic",
+          "effort": "xhigh",
+          "source": "https://gist.github.com/mbijon/bf97d677f050d36f2d52b2f3fbd43f17",
+          "confidence": "high"
+        },
+        "tb20": {
+          "value": 69.4,
+          "vendor_value": 69.4,
+          "harness": "Anthropic",
+          "effort": "xhigh",
+          "source": "https://gist.github.com/mbijon/bf97d677f050d36f2d52b2f3fbd43f17",
+          "confidence": "high"
+        },
+        "programbench": {
+          "value": 55.3,
+          "vendor_value": null,
+          "harness": "ProgramBench",
+          "effort": "xhigh",
+          "source": "https://programbench.com/",
+          "confidence": "medium"
+        }
+      },
+      "notes": "Introduced the xhigh effort level, recommended as the default for agentic coding. New tokenizer bills 1.0-1.35x more tokens for the same input. Anthropic conceded at launch that it trails the unreleased Mythos Preview. ProgramBench default-effort score is 50.9 at $3.81/task vs 55.3 at $10.96 for xhigh.",
+      "sources": [
+        "https://www.anthropic.com/news/claude-opus-4-7",
+        "https://www.axios.com/2026/04/16/anthropic-claude-opus-model-mythos"
+      ],
+      "copilot": {
+        "available": true,
+        "release_status": "GA",
+        "category": "Powerful",
+        "input": 5.0,
+        "cached_input": 0.5,
+        "cache_write": 6.25,
+        "output": 25.0,
+        "long_context": null,
+        "promo": null,
+        "source": "github-copilot-pricing",
+        "deprecation": {
+          "date": "2026-10-02",
+          "replacement": "Claude Opus 5",
+          "source": "github-copilot-changelog"
+        }
+      }
+    },
+    {
+      "id": "openai-gpt-5-5",
+      "vendor": "OpenAI",
+      "name": "GPT-5.5",
+      "tier": "flagship",
+      "released": "2026-04-23",
+      "availability": "ga",
+      "anchor": false,
+      "context_window": null,
+      "price_in": 5.0,
+      "price_out": 30.0,
+      "scores": {
+        "tb21": {
+          "value": 78.2,
+          "vendor_value": 88.0,
+          "harness": "third-party / OpenAI",
+          "effort": "high",
+          "source": "https://www.morphllm.com/claude-benchmarks",
+          "confidence": "low"
+        },
+        "tb20": {
+          "value": 82.7,
+          "vendor_value": 82.7,
+          "harness": "OpenAI",
+          "effort": "high",
+          "source": "https://en.wikipedia.org/wiki/GPT-5.5",
+          "confidence": "high"
+        },
+        "swe_pro": {
+          "value": 58.6,
+          "vendor_value": 58.6,
+          "harness": "OpenAI",
+          "effort": "high",
+          "source": "https://www.morphllm.com/claude-benchmarks",
+          "confidence": "medium"
+        },
+        "programbench": {
+          "value": 56.6,
+          "vendor_value": null,
+          "harness": "ProgramBench",
+          "effort": "default",
+          "source": "https://programbench.com/",
+          "confidence": "medium"
+        },
+        "deepswe": {
+          "value": 67,
+          "vendor_value": null,
+          "harness": "mini-swe-agent (Datacurve)",
+          "effort": "xhigh",
+          "source": "https://deepswe.datacurve.ai/",
+          "confidence": "high",
+          "cost_per_task": 7.23
+        }
+      },
+      "notes": "Codename Spud. The reference point for the price-collapse comparison: this is what flagship cost in April. ProgramBench xhigh 69.8 at $8.85/task, high 66.8 at $3.65.",
+      "sources": [
+        "https://openai.com/index/introducing-gpt-5-5/",
+        "https://en.wikipedia.org/wiki/GPT-5.5"
+      ],
+      "copilot": {
+        "available": true,
+        "release_status": "GA",
+        "category": "Powerful",
+        "input": 5.0,
+        "cached_input": 0.5,
+        "cache_write": null,
+        "output": 30.0,
+        "long_context": {
+          "threshold": 272000,
+          "input": 10.0,
+          "cached_input": 1.0,
+          "output": 45.0
+        },
+        "promo": null,
+        "source": "github-copilot-pricing"
+      }
+    },
+    {
+      "id": "xai-grok-4-3",
+      "vendor": "xAI",
+      "name": "Grok 4.3",
+      "tier": "flagship",
+      "released": "2026-04-30",
+      "availability": "ga",
+      "anchor": false,
+      "context_window": 1000000,
+      "price_in": 1.25,
+      "price_out": 2.5,
+      "scores": {},
+      "notes": "Large agentic jump over Grok 4.20 (GDPval-AA Elo 1500, up 321) at roughly 20% lower cost to run the Artificial Analysis suite. No published Terminal-Bench 2.1 or SWE-bench Pro figure, so it cannot be placed on the agentic charts. Not offered in GitHub Copilot.",
+      "sources": [
+        "https://artificialanalysis.ai/articles/xai-launches-grok-4-3-with-improved-agentic-performance-and-lower-pricing",
+        "https://www.vals.ai/models/grok_grok-4.3"
+      ],
+      "copilot": {
+        "available": false,
+        "note": "Not in the Copilot table as of 2026-09-05; Copilot carries Grok 4.5 and 4.6.",
+        "source": "github-copilot-pricing"
+      }
+    },
+    {
+      "id": "google-gemini-3-5-flash",
+      "vendor": "Google",
+      "name": "Gemini 3.5 Flash",
+      "tier": "efficient",
+      "released": "2026-05-19",
+      "availability": "ga",
+      "anchor": false,
+      "context_window": 1048576,
+      "price_in": 1.5,
+      "price_out": 9.0,
+      "scores": {
+        "tb20": {
+          "value": 76.2,
+          "vendor_value": 76.2,
+          "harness": "Google",
+          "effort": "default",
+          "source": "https://llm-stats.com/benchmarks/terminal-bench-2",
+          "confidence": "medium"
+        },
+        "programbench": {
+          "value": 53.6,
+          "vendor_value": null,
+          "harness": "ProgramBench",
+          "effort": "default",
+          "source": "https://programbench.com/",
+          "confidence": "medium"
+        },
+        "deepswe": {
+          "value": 36,
+          "vendor_value": null,
+          "harness": "mini-swe-agent (Datacurve)",
+          "effort": "high",
+          "source": "https://deepswe.datacurve.ai/",
+          "confidence": "high",
+          "cost_per_task": 3.45
+        }
+      },
+      "notes": "Launched at I/O 2026 as the Gemini app and Search AI Mode default. Roughly a 3x price rise over Gemini 3 Flash, reset two months later by the 3.6/3.7/3.8 intro rate.",
+      "sources": [
+        "https://codersera.com/blog/gemini-3-5-complete-guide-2026/"
+      ],
+      "copilot": {
+        "available": true,
+        "release_status": "GA",
+        "category": "Lightweight",
+        "input": 1.5,
+        "cached_input": 0.15,
+        "cache_write": null,
+        "output": 9.0,
+        "long_context": null,
+        "promo": null,
+        "source": "github-copilot-pricing",
+        "deprecation": {
+          "date": "2026-10-02",
+          "replacement": "Gemini 3.8 Flash",
+          "source": "github-copilot-changelog"
+        }
+      }
+    },
+    {
+      "id": "anthropic-opus-4-8",
+      "vendor": "Anthropic",
+      "name": "Claude Opus 4.8",
+      "tier": "flagship",
+      "released": "2026-05-28",
+      "availability": "ga",
+      "anchor": false,
+      "context_window": 1000000,
+      "price_in": 5.0,
+      "price_out": 25.0,
+      "scores": {
+        "tb21": {
+          "value": 74.6,
+          "vendor_value": 85.0,
+          "harness": "third-party / Anthropic",
+          "effort": "max",
+          "source": "https://www.morphllm.com/claude-benchmarks",
+          "confidence": "low"
+        },
+        "swe_verified": {
+          "value": 88.6,
+          "vendor_value": 88.6,
+          "harness": "Anthropic",
+          "effort": "max",
+          "source": "https://llm-stats.com/benchmarks/swe-bench-verified",
+          "confidence": "high"
+        },
+        "swe_pro": {
+          "value": 69.2,
+          "vendor_value": 69.2,
+          "harness": "Anthropic",
+          "effort": "max",
+          "source": "https://www.morphllm.com/claude-benchmarks",
+          "confidence": "high"
+        },
+        "programbench": {
+          "value": 70.9,
+          "vendor_value": null,
+          "harness": "ProgramBench",
+          "effort": "xhigh",
+          "source": "https://programbench.com/",
+          "confidence": "medium"
+        },
+        "tb40": {
+          "value": 23.64,
+          "vendor_value": null,
+          "harness": "tbench.ai official, Claude Code",
+          "effort": "max",
+          "source": "https://hub.harborframework.com/datasets/terminal-bench/terminal-bench/latest?tab=leaderboard&leaderboard=4-0-0",
+          "confidence": "high",
+          "standardized_value": 16.16,
+          "standardized_source": "https://www.vals.ai/benchmarks/terminal-bench-4"
+        },
+        "deepswe": {
+          "value": 59,
+          "vendor_value": null,
+          "harness": "mini-swe-agent (Datacurve)",
+          "effort": "max",
+          "source": "https://deepswe.datacurve.ai/",
+          "confidence": "high",
+          "cost_per_task": 13.22
+        }
+      },
+      "notes": "Roughly 4x less likely than Opus 4.7 to let flaws in its own code pass unremarked. Retires no sooner than 2027-05-28, and remains the newest Opus-price model with a published SWE-bench figure. Serves as the refusal fallback for Fable 5 and Opus 5 benchmark runs.",
+      "sources": [
+        "https://hidekazu-konishi.com/entry/anthropic_claude_model_release_timeline.html",
+        "https://www.morphllm.com/claude-benchmarks"
+      ],
+      "copilot": {
+        "available": true,
+        "release_status": "GA",
+        "category": "Powerful",
+        "input": 5.0,
+        "cached_input": 0.5,
+        "cache_write": 6.25,
+        "output": 25.0,
+        "long_context": null,
+        "promo": null,
+        "source": "github-copilot-pricing"
+      }
+    },
+    {
+      "id": "anthropic-fable-5",
+      "vendor": "Anthropic",
+      "name": "Claude Fable 5 / Mythos 5",
+      "tier": "frontier",
+      "released": "2026-06-09",
+      "availability": "ga",
+      "anchor": false,
+      "context_window": 1000000,
+      "price_in": 10.0,
+      "price_out": 50.0,
+      "scores": {
+        "tb21": {
+          "value": 84.0,
+          "vendor_value": 86.0,
+          "harness": "independent range 83.4-84.3 / Anthropic",
+          "effort": "adaptive",
+          "source": "https://www.vellum.ai/blog/gpt-5-6-sol-terra-luna-explained",
+          "confidence": "low"
+        },
+        "swe_verified": {
+          "value": 95.0,
+          "vendor_value": 95.0,
+          "harness": "Anthropic",
+          "effort": "adaptive",
+          "source": "https://llm-stats.com/benchmarks/swe-bench-verified",
+          "confidence": "high"
+        },
+        "swe_pro": {
+          "value": 80.0,
+          "vendor_value": 80.3,
+          "harness": "llm-stats aggregate / Anthropic",
+          "effort": "adaptive",
+          "source": "https://www.morphllm.com/swe-bench-pro",
+          "confidence": "medium"
+        },
+        "tb40": {
+          "value": 44.55,
+          "vendor_value": null,
+          "harness": "tbench.ai official, Claude Code",
+          "effort": "max",
+          "source": "https://hub.harborframework.com/datasets/terminal-bench/terminal-bench/latest?tab=leaderboard&leaderboard=4-0-0",
+          "confidence": "high"
+        },
+        "deepswe": {
+          "value": 70,
+          "vendor_value": null,
+          "harness": "mini-swe-agent (Datacurve)",
+          "effort": "xhigh",
+          "source": "https://deepswe.datacurve.ai/",
+          "confidence": "high",
+          "cost_per_task": 13.41
+        }
+      },
+      "notes": "First Mythos-class tier above Opus. Fable and Mythos share weights; Fable routes flagged cyber/bio/distillation requests to Opus. Suspended 2026-06-12 under a US export-control order, restored globally 2026-07-01. Anthropic's own run reports safety refusals on 20.9% of TB trials, falling back to Opus 4.8.",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Claude_Mythos",
+        "https://hidekazu-konishi.com/entry/anthropic_claude_model_release_timeline.html"
+      ],
+      "copilot": {
+        "available": true,
+        "release_status": "GA",
+        "category": "Powerful",
+        "input": 10.0,
+        "cached_input": 1.0,
+        "cache_write": 12.5,
+        "output": 50.0,
+        "long_context": null,
+        "promo": null,
+        "source": "github-copilot-pricing"
+      }
+    },
+    {
+      "id": "openai-gpt-5-6-preview",
+      "vendor": "OpenAI",
+      "name": "GPT-5.6 Sol (preview)",
+      "tier": "frontier",
+      "released": "2026-06-26",
+      "availability": "restricted",
+      "anchor": false,
+      "context_window": null,
+      "price_in": 5.0,
+      "price_out": 30.0,
+      "scores": {},
+      "notes": "Limited preview to ~20 vetted organizations under a cyber Executive Order framework; Commerce approved broad launch twelve days later.",
+      "sources": [
+        "https://openai.com/research/index/release/"
+      ],
+      "copilot": {
+        "available": false,
+        "note": "Restricted preview; superseded by the GA tiers.",
+        "source": "github-copilot-pricing"
+      }
+    },
+    {
+      "id": "anthropic-sonnet-5",
+      "vendor": "Anthropic",
+      "name": "Claude Sonnet 5",
+      "tier": "mid",
+      "released": "2026-06-30",
+      "availability": "ga",
+      "anchor": false,
+      "context_window": 1000000,
+      "price_in": 2.0,
+      "price_out": 10.0,
+      "price_history": [
+        {
+          "date": "2026-08-10",
+          "in": 2.0,
+          "out": 10.0,
+          "note": "introductory rate made permanent; the announced $3/$15 standard rate never took effect"
+        }
+      ],
+      "scores": {
+        "tb21": {
+          "value": 80.4,
+          "vendor_value": null,
+          "harness": "Coursiv run",
+          "effort": "default",
+          "source": "https://tech-insider.org/claude-sonnet-5-release-2026/",
+          "confidence": "medium"
+        },
+        "swe_verified": {
+          "value": 85.2,
+          "vendor_value": 85.2,
+          "harness": "Anthropic",
+          "effort": "default",
+          "source": "https://www.morphllm.com/claude-benchmarks",
+          "confidence": "medium"
+        },
+        "swe_pro": {
+          "value": 63.2,
+          "vendor_value": 63.2,
+          "harness": "Anthropic",
+          "effort": "default",
+          "source": "https://www.morphllm.com/claude-benchmarks",
+          "confidence": "high"
+        },
+        "tb40": {
+          "value": 12.42,
+          "vendor_value": null,
+          "harness": "tbench.ai official, Claude Code",
+          "effort": "max",
+          "source": "https://hub.harborframework.com/datasets/terminal-bench/terminal-bench/latest?tab=leaderboard&leaderboard=4-0-0",
+          "confidence": "high",
+          "standardized_value": 8.08,
+          "standardized_source": "https://www.vals.ai/benchmarks/terminal-bench-4"
+        },
+        "deepswe": {
+          "value": 54,
+          "vendor_value": null,
+          "harness": "mini-swe-agent (Datacurve)",
+          "effort": "max",
+          "source": "https://deepswe.datacurve.ai/",
+          "confidence": "high",
+          "cost_per_task": 26.4
+        }
+      },
+      "notes": "Default on Free and Pro. Now cheaper than the Sonnet 4.6 it outscores. Its SWE-bench Pro 63.2 sits within 6 points of Opus 4.8 at 40% of the price.",
+      "sources": [
+        "https://www.datacamp.com/blog/claude-sonnet-5",
+        "https://coursiv.io/blog/claude-sonnet-5"
+      ],
+      "copilot": {
+        "available": true,
+        "release_status": "GA",
+        "category": "Versatile",
+        "input": 2.0,
+        "cached_input": 0.2,
+        "cache_write": 2.5,
+        "output": 10.0,
+        "long_context": null,
+        "promo": null,
+        "source": "github-copilot-pricing"
+      }
+    },
+    {
+      "id": "xai-grok-4-5",
+      "vendor": "xAI",
+      "name": "Grok 4.5",
+      "tier": "flagship",
+      "released": "2026-07-08",
+      "availability": "ga",
+      "anchor": false,
+      "context_window": 500000,
+      "price_in": 2.0,
+      "price_out": 6.0,
+      "scores": {
+        "tb21": {
+          "value": 83.3,
+          "vendor_value": 83.3,
+          "harness": "Grok Build",
+          "effort": "high",
+          "source": "https://lushbinary.com/blog/grok-4-5-developer-guide-benchmarks-api-features/",
+          "confidence": "medium"
+        },
+        "swe_pro": {
+          "value": 64.7,
+          "vendor_value": 64.7,
+          "harness": "xAI",
+          "effort": "high",
+          "source": "https://lushbinary.com/blog/grok-4-5-developer-guide-benchmarks-api-features/",
+          "confidence": "medium"
+        },
+        "tb40": {
+          "value": 12.42,
+          "vendor_value": null,
+          "harness": "tbench.ai official, Grok Build",
+          "effort": "high",
+          "source": "https://hub.harborframework.com/datasets/terminal-bench/terminal-bench/latest?tab=leaderboard&leaderboard=4-0-0",
+          "confidence": "high"
+        }
+      },
+      "notes": "Co-developed with Cursor on real coding-session data; Cursor disclosed that an earlier Cursor codebase snapshot was accidentally included in training, so in-IDE results should be treated as optimistic until independently reproduced. Undercuts Opus 4.8 by about 3x on input and 4.2x on output. Prompts above 200K tokens are billed at double rate for the whole request.",
+      "sources": [
+        "https://lushbinary.com/blog/grok-4-5-developer-guide-benchmarks-api-features/",
+        "https://felloai.com/grok-4-5/"
+      ],
+      "copilot": {
+        "available": true,
+        "release_status": "GA",
+        "category": "Versatile",
+        "input": 2.0,
+        "cached_input": 0.5,
+        "cache_write": null,
+        "output": 6.0,
+        "long_context": {
+          "threshold": 200000,
+          "input": 4.0,
+          "cached_input": 1.0,
+          "output": 12.0
+        },
+        "promo": null,
+        "source": "github-copilot-pricing"
+      }
+    },
+    {
+      "id": "openai-gpt-5-6-sol",
+      "vendor": "OpenAI",
+      "name": "GPT-5.6 Sol",
+      "tier": "flagship",
+      "released": "2026-07-09",
+      "availability": "ga",
+      "anchor": false,
+      "context_window": null,
+      "price_in": 5.0,
+      "price_out": 30.0,
+      "scores": {
+        "tb21": {
+          "value": 85.77,
+          "vendor_value": 88.8,
+          "harness": "vals.ai Terminus 2 / OpenAI",
+          "effort": "max",
+          "source": "https://www.vals.ai/benchmarks/terminal-bench-2-1",
+          "confidence": "high"
+        },
+        "swe_pro": {
+          "value": 64.6,
+          "vendor_value": 64.6,
+          "harness": "OpenAI",
+          "effort": "max",
+          "source": "https://codingfleet.com/blog/swe-bench-pro-leaderboard-2026/",
+          "confidence": "high"
+        },
+        "swe_verified": {
+          "value": 96.2,
+          "vendor_value": 96.2,
+          "harness": "OpenAI",
+          "effort": "max",
+          "source": "https://localaimaster.com/models/swe-bench-explained-ai-benchmarks",
+          "confidence": "medium"
+        },
+        "programbench": {
+          "value": 57.8,
+          "vendor_value": null,
+          "harness": "ProgramBench",
+          "effort": "default",
+          "source": "https://programbench.com/",
+          "confidence": "medium"
+        },
+        "tb40": {
+          "value": 37.27,
+          "vendor_value": null,
+          "harness": "tbench.ai official, Codex",
+          "effort": "max",
+          "source": "https://hub.harborframework.com/datasets/terminal-bench/terminal-bench/latest?tab=leaderboard&leaderboard=4-0-0",
+          "confidence": "high"
+        },
+        "deepswe": {
+          "value": 73,
+          "vendor_value": null,
+          "harness": "mini-swe-agent (Datacurve)",
+          "effort": "max",
+          "source": "https://deepswe.datacurve.ai/",
+          "confidence": "high",
+          "cost_per_task": 6.46
+        }
+      },
+      "notes": "Sol Ultra (four parallel subagents) reaches 91.9 on TB 2.1 at roughly 3x single-agent cost. ProgramBench xhigh 69.9 at $6.08/task. Sol Fast is $12.50/$75 on Cerebras hardware.",
+      "sources": [
+        "https://www.analyticsvidhya.com/blog/2026/07/gpt-5-6-sol-terra-luna/",
+        "https://the-agent-report.com/2026/07/gpt-5-6-sol-terra-luna-benchmarks-pricing-analysis/"
+      ],
+      "copilot": {
+        "available": true,
+        "release_status": "GA",
+        "category": "Powerful",
+        "input": 4.0,
+        "cached_input": 0.4,
+        "cache_write": 5.0,
+        "output": 20.0,
+        "long_context": {
+          "threshold": 272000,
+          "input": 8.0,
+          "cached_input": 0.8,
+          "cache_write": 10.0,
+          "output": 30.0
+        },
+        "promo": null,
+        "source": "github-copilot-pricing"
+      }
+    },
+    {
+      "id": "openai-gpt-5-6-terra",
+      "vendor": "OpenAI",
+      "name": "GPT-5.6 Terra",
+      "tier": "mid",
+      "released": "2026-07-09",
+      "availability": "ga",
+      "anchor": false,
+      "context_window": null,
+      "price_in": 2.0,
+      "price_out": 12.0,
+      "price_history": [
+        {
+          "date": "2026-07-09",
+          "in": 2.5,
+          "out": 15.0,
+          "note": "launch rate"
+        },
+        {
+          "date": "2026-07-30",
+          "in": 2.0,
+          "out": 12.0,
+          "note": "20% cut"
+        }
+      ],
+      "scores": {
+        "tb21": {
+          "value": 87.4,
+          "vendor_value": 87.4,
+          "harness": "OpenAI",
+          "effort": "max",
+          "source": "https://techjacksolutions.com/ai-tools/chatgpt/gpt-5-6-pricing/",
+          "confidence": "medium"
+        },
+        "swe_pro": {
+          "value": 63.4,
+          "vendor_value": 63.4,
+          "harness": "OpenAI",
+          "effort": "max",
+          "source": "https://www.morphllm.com/swe-bench-pro",
+          "confidence": "high"
+        },
+        "tb40": {
+          "value": 21.52,
+          "vendor_value": null,
+          "harness": "tbench.ai official, Codex",
+          "effort": "max",
+          "source": "https://hub.harborframework.com/datasets/terminal-bench/terminal-bench/latest?tab=leaderboard&leaderboard=4-0-0",
+          "confidence": "high"
+        }
+      },
+      "notes": "Beats the prior flagship GPT-5.5 on TB 2.1 (87.4 vs 85.6 on the same OpenAI table) at 40% of its price.",
+      "sources": [
+        "https://techjacksolutions.com/ai-tools/chatgpt/gpt-5-6-pricing/"
+      ],
+      "copilot": {
+        "available": true,
+        "release_status": "GA",
+        "category": "Versatile",
+        "input": 2.0,
+        "cached_input": 0.2,
+        "cache_write": 2.5,
+        "output": 12.0,
+        "long_context": {
+          "threshold": 272000,
+          "input": 4.0,
+          "cached_input": 0.4,
+          "cache_write": 5.0,
+          "output": 18.0
+        },
+        "promo": null,
+        "source": "github-copilot-pricing"
+      }
+    },
+    {
+      "id": "openai-gpt-5-6-luna",
+      "vendor": "OpenAI",
+      "name": "GPT-5.6 Luna",
+      "tier": "efficient",
+      "released": "2026-07-09",
+      "availability": "ga",
+      "anchor": false,
+      "context_window": null,
+      "price_in": 0.2,
+      "price_out": 1.2,
+      "price_history": [
+        {
+          "date": "2026-07-09",
+          "in": 1.0,
+          "out": 6.0,
+          "note": "launch rate"
+        },
+        {
+          "date": "2026-07-30",
+          "in": 0.2,
+          "out": 1.2,
+          "note": "80% cut, reported as a response to Claude Opus 5"
+        }
+      ],
+      "scores": {
+        "tb21": {
+          "value": 84.3,
+          "vendor_value": 84.3,
+          "harness": "OpenAI",
+          "effort": "max",
+          "source": "https://www.aimadetools.com/blog/gpt-5-6-sol-terra-luna-complete-guide/",
+          "confidence": "medium"
+        },
+        "swe_pro": {
+          "value": 62.7,
+          "vendor_value": 62.7,
+          "harness": "OpenAI",
+          "effort": "max",
+          "source": "https://www.morphllm.com/swe-bench-pro",
+          "confidence": "high"
+        },
+        "swe_verified": {
+          "value": 93.0,
+          "vendor_value": 93.0,
+          "harness": "OpenAI",
+          "effort": "max",
+          "source": "https://localaimaster.com/models/swe-bench-explained-ai-benchmarks",
+          "confidence": "medium"
+        },
+        "tb40": {
+          "value": 17.27,
+          "vendor_value": null,
+          "harness": "tbench.ai official, Codex",
+          "effort": "max",
+          "source": "https://hub.harborframework.com/datasets/terminal-bench/terminal-bench/latest?tab=leaderboard&leaderboard=4-0-0",
+          "confidence": "high"
+        },
+        "deepswe": {
+          "value": 67,
+          "vendor_value": null,
+          "harness": "mini-swe-agent (Datacurve)",
+          "effort": "max",
+          "source": "https://deepswe.datacurve.ai/",
+          "confidence": "high",
+          "cost_per_task": 0.61
+        }
+      },
+      "notes": "The central data point of this dataset. At $0.20/$1.20 it scores within 4.5 points of the flagship Sol and above the mid-tier Terra on Terminal-Bench 2.1, at a twentieth of Sol's input price. The 2026-07-30 price cut is confirmed by the Copilot rate card. Artificial Analysis Coding Agent Index: Sol 80, Terra 77.4, Luna 74.6.",
+      "sources": [
+        "https://www.aimadetools.com/blog/gpt-5-6-sol-terra-luna-complete-guide/",
+        "https://qcode.cc/en/gpt-5-6-guide"
+      ],
+      "copilot": {
+        "available": true,
+        "release_status": "GA",
+        "category": "Lightweight",
+        "input": 0.2,
+        "cached_input": 0.02,
+        "cache_write": 0.25,
+        "output": 1.2,
+        "long_context": {
+          "threshold": 200000,
+          "input": 0.4,
+          "cached_input": 0.04,
+          "cache_write": 0.5,
+          "output": 1.8
+        },
+        "promo": null,
+        "source": "github-copilot-pricing"
+      }
+    },
+    {
+      "id": "google-gemini-3-6-flash",
+      "vendor": "Google",
+      "name": "Gemini 3.6 Flash",
+      "tier": "efficient",
+      "released": "2026-07-21",
+      "availability": "ga",
+      "anchor": false,
+      "context_window": 1048576,
+      "price_in": 0.75,
+      "price_out": 3.75,
+      "price_history": [
+        {
+          "date": "2027-01-01",
+          "in": 1.5,
+          "out": 7.5,
+          "note": "scheduled end of introductory rate"
+        }
+      ],
+      "scores": {
+        "programbench": {
+          "value": 55.7,
+          "vendor_value": null,
+          "harness": "ProgramBench",
+          "effort": "default",
+          "source": "https://programbench.com/",
+          "confidence": "medium"
+        },
+        "deepswe": {
+          "value": 47,
+          "vendor_value": null,
+          "harness": "mini-swe-agent (Datacurve)",
+          "effort": "high",
+          "source": "https://deepswe.datacurve.ai/",
+          "confidence": "high",
+          "cost_per_task": 2.21
+        }
+      },
+      "notes": "Shipped alongside Gemini 3.5 Flash-Lite at $0.30/$2.50. Free-plan default in the Gemini app.",
+      "sources": [
+        "https://felloai.com/ultimate-gemini-model-comparison/"
+      ],
+      "copilot": {
+        "available": true,
+        "release_status": "GA",
+        "category": "Versatile",
+        "input": 0.75,
+        "cached_input": 0.075,
+        "cache_write": null,
+        "output": 3.75,
+        "long_context": null,
+        "promo": "Promotional rate through 2026-12-31.",
+        "source": "github-copilot-pricing",
+        "deprecation": {
+          "date": "2026-10-02",
+          "replacement": "Gemini 3.8 Flash",
+          "source": "github-copilot-changelog"
+        }
+      }
+    },
+    {
+      "id": "anthropic-opus-5",
+      "vendor": "Anthropic",
+      "name": "Claude Opus 5",
+      "tier": "flagship",
+      "released": "2026-07-24",
+      "availability": "ga",
+      "anchor": false,
+      "context_window": 1000000,
+      "price_in": 5.0,
+      "price_out": 25.0,
+      "scores": {
+        "tb21": {
+          "value": 84.64,
+          "vendor_value": 89.1,
+          "harness": "vals.ai Terminus 2 / third-party",
+          "effort": "max",
+          "source": "https://www.vals.ai/benchmarks/terminal-bench-2-1",
+          "confidence": "high"
+        },
+        "swe_pro": {
+          "value": 79.2,
+          "vendor_value": 79.2,
+          "harness": "Anthropic",
+          "effort": "max",
+          "source": "https://codingfleet.com/blog/swe-bench-pro-leaderboard-2026/",
+          "confidence": "high"
+        },
+        "swe_verified": {
+          "value": 96.0,
+          "vendor_value": 96.0,
+          "harness": "Anthropic / vals 97.0",
+          "effort": "max",
+          "source": "https://benchlm.ai/benchmarks/sweVerified",
+          "confidence": "medium"
+        },
+        "programbench": {
+          "value": 74.7,
+          "vendor_value": null,
+          "harness": "ProgramBench",
+          "effort": "xhigh",
+          "source": "https://programbench.com/",
+          "confidence": "medium"
+        },
+        "tb40": {
+          "value": 53.94,
+          "vendor_value": null,
+          "harness": "tbench.ai official, Claude Code",
+          "effort": "xhigh",
+          "source": "https://hub.harborframework.com/datasets/terminal-bench/terminal-bench/latest?tab=leaderboard&leaderboard=4-0-0",
+          "confidence": "high",
+          "standardized_value": 45.45,
+          "standardized_source": "https://www.vals.ai/benchmarks/terminal-bench-4"
+        },
+        "deepswe": {
+          "value": 74,
+          "vendor_value": null,
+          "harness": "mini-swe-agent (Datacurve)",
+          "effort": "max",
+          "source": "https://deepswe.datacurve.ai/",
+          "confidence": "high",
+          "cost_per_task": 11.84
+        }
+      },
+      "notes": "Near-Fable capability at half the price. Tops ProgramBench and the Artificial Analysis Agentic Index (55.3), and leads Terminal-Bench 3.0 at 42.7 where the whole field collapses. The vals TB 2.1 run used Opus 4.8 as a refusal fallback; scoring the nine affected passes as failures drops it from 84.64 to 81.27.",
+      "sources": [
+        "https://www.vals.ai/benchmarks/terminal-bench-2-1",
+        "https://felloai.com/all-we-know-about-claude-5/"
+      ],
+      "copilot": {
+        "available": true,
+        "release_status": "GA",
+        "category": "Powerful",
+        "input": 5.0,
+        "cached_input": 0.5,
+        "cache_write": 6.25,
+        "output": 25.0,
+        "long_context": null,
+        "promo": null,
+        "source": "github-copilot-pricing"
+      }
+    },
+    {
+      "id": "xai-grok-4-6",
+      "vendor": "xAI",
+      "name": "Grok 4.6",
+      "tier": "flagship",
+      "released": "2026-08-12",
+      "availability": "ga",
+      "anchor": false,
+      "context_window": 500000,
+      "price_in": 2.0,
+      "price_out": 6.0,
+      "scores": {
+        "tb21": {
+          "value": 88.4,
+          "vendor_value": null,
+          "harness": "Artificial Analysis",
+          "effort": "xhigh",
+          "source": "https://codingfleet.com/blog/terminal-bench-leaderboard-2026/",
+          "confidence": "medium"
+        },
+        "swe_verified": {
+          "value": 95.6,
+          "vendor_value": 95.6,
+          "harness": "Vals",
+          "effort": "xhigh",
+          "source": "https://codersera.com/blog/grok-4-6-launch-guide-2026/",
+          "confidence": "medium"
+        },
+        "tb40": {
+          "value": 20.3,
+          "vendor_value": null,
+          "harness": "tbench.ai official, Grok Build",
+          "effort": "high",
+          "source": "https://hub.harborframework.com/datasets/terminal-bench/terminal-bench/latest?tab=leaderboard&leaderboard=4-0-0",
+          "confidence": "high"
+        },
+        "deepswe": {
+          "value": 67,
+          "vendor_value": null,
+          "harness": "mini-swe-agent (Datacurve)",
+          "effort": "medium",
+          "source": "https://deepswe.datacurve.ai/",
+          "confidence": "high",
+          "cost_per_task": 3.45
+        }
+      },
+      "notes": "Post-training refresh at the same scale as 4.5: same 500K context, same headline price, new xhigh effort level, AA Intelligence Index 61. Turn efficiency is the real story, roughly 53 turns and 0.5B input tokens against Claude Opus 5's ~103 turns and 2.0B. But LiveBench measured an agentic-coding regression to 54.2 from Grok 4.5's 56.5, SkillsBench fell to 55.77 from 66.03, and time to first token went from 8.7s to 31.2s. Cached input rose from $0.30 to $0.50.",
+      "sources": [
+        "https://codersera.com/blog/grok-4-6-launch-guide-2026/",
+        "https://codingfleet.com/blog/grok-4-6-vs-grok-4-5/"
+      ],
+      "copilot": {
+        "available": true,
+        "release_status": "GA",
+        "category": "Versatile",
+        "input": 2.0,
+        "cached_input": 0.5,
+        "cache_write": null,
+        "output": 6.0,
+        "long_context": {
+          "threshold": 200000,
+          "input": 4.0,
+          "cached_input": 1.0,
+          "output": 12.0
+        },
+        "promo": null,
+        "source": "github-copilot-pricing"
+      }
+    },
+    {
+      "id": "google-gemini-3-7-flash",
+      "vendor": "Google",
+      "name": "Gemini 3.7 Flash",
+      "tier": "efficient",
+      "released": "2026-08-13",
+      "availability": "ga",
+      "anchor": false,
+      "context_window": 1048576,
+      "price_in": 0.75,
+      "price_out": 3.75,
+      "price_history": [
+        {
+          "date": "2027-01-01",
+          "in": 1.5,
+          "out": 7.5,
+          "note": "scheduled end of introductory rate"
+        }
+      ],
+      "scores": {
+        "tb21": {
+          "value": 81.6,
+          "vendor_value": 85.8,
+          "harness": "third-party / Google",
+          "effort": "high",
+          "source": "https://www.datacamp.com/blog/gemini-3-8-flash-cyber",
+          "confidence": "low"
+        },
+        "programbench": {
+          "value": 61.2,
+          "vendor_value": null,
+          "harness": "ProgramBench",
+          "effort": "default",
+          "source": "https://programbench.com/",
+          "confidence": "medium"
+        },
+        "tb40": {
+          "value": 11.21,
+          "vendor_value": null,
+          "harness": "tbench.ai official, mini-SWE-agent",
+          "effort": "high",
+          "source": "https://hub.harborframework.com/datasets/terminal-bench/terminal-bench/latest?tab=leaderboard&leaderboard=4-0-0",
+          "confidence": "high"
+        },
+        "deepswe": {
+          "value": 65,
+          "vendor_value": null,
+          "harness": "mini-swe-agent (Datacurve)",
+          "effort": "medium",
+          "source": "https://deepswe.datacurve.ai/",
+          "confidence": "high",
+          "cost_per_task": 2.03
+        }
+      },
+      "notes": "Described by Google as algorithmic improvements on the 3.6 Flash reasoning foundation rather than a new pretrained model, shipped three weeks after 3.6. On ProgramBench it beats Claude Opus 4.7 xhigh (55.3) and Opus 4.6 (52.1) at $2.04/task against $10.96 and $11.38.",
+      "sources": [
+        "https://evolink.ai/blog/gemini-3-7-flash-release-date",
+        "https://programbench.com/"
+      ],
+      "copilot": {
+        "available": true,
+        "release_status": "GA",
+        "category": "Versatile",
+        "input": 0.75,
+        "cached_input": 0.075,
+        "cache_write": null,
+        "output": 3.75,
+        "long_context": null,
+        "promo": "Promotional rate through 2026-12-31.",
+        "source": "github-copilot-pricing"
+      }
+    },
+    {
+      "id": "anthropic-fable-5-1",
+      "vendor": "Anthropic",
+      "name": "Claude Fable 5.1 / Mythos 5.1",
+      "tier": "frontier",
+      "released": "2026-09-01",
+      "availability": "ga",
+      "anchor": false,
+      "context_window": 1000000,
+      "price_in": 10.0,
+      "price_out": 50.0,
+      "scores": {
+        "tb21": {
+          "value": 85.02,
+          "vendor_value": null,
+          "harness": "vals.ai Terminus 2",
+          "effort": "adaptive",
+          "source": "https://www.vals.ai/benchmarks/terminal-bench-2-1",
+          "confidence": "high"
+        },
+        "swe_pro": {
+          "value": 81.2,
+          "vendor_value": 81.2,
+          "harness": "vendor aggregate",
+          "effort": "adaptive",
+          "source": "https://codingfleet.com/blog/swe-bench-pro-leaderboard-2026/",
+          "confidence": "high"
+        },
+        "tb40": {
+          "value": 57.88,
+          "vendor_value": null,
+          "harness": "tbench.ai official, Claude Code",
+          "effort": "max",
+          "source": "https://hub.harborframework.com/datasets/terminal-bench/terminal-bench/latest?tab=leaderboard&leaderboard=4-0-0",
+          "confidence": "high",
+          "standardized_value": 49.49,
+          "standardized_source": "https://www.vals.ai/benchmarks/terminal-bench-4"
+        }
+      },
+      "notes": "Highest SWE-bench Pro on record. Anthropic still names Opus 5 the starting point for most workloads and reserves Fable 5.1 for demanding long-horizon work. Three API changes break Fable 5 code.",
+      "sources": [
+        "https://codingfleet.com/blog/swe-bench-pro-leaderboard-2026/",
+        "https://claudefa.st/blog/models"
+      ],
+      "copilot": {
+        "available": true,
+        "release_status": "GA",
+        "category": "Powerful",
+        "input": 10.0,
+        "cached_input": 0.25,
+        "cache_write": 12.5,
+        "output": 50.0,
+        "long_context": null,
+        "promo": null,
+        "source": "github-copilot-pricing"
+      }
+    },
+    {
+      "id": "google-gemini-3-8-flash",
+      "vendor": "Google",
+      "name": "Gemini 3.8 Flash",
+      "tier": "efficient",
+      "released": "2026-09-02",
+      "availability": "ga",
+      "anchor": false,
+      "context_window": 1048576,
+      "price_in": 0.75,
+      "price_out": 3.75,
+      "price_history": [
+        {
+          "date": "2027-01-01",
+          "in": 1.5,
+          "out": 7.5,
+          "note": "scheduled end of introductory rate"
+        }
+      ],
+      "scores": {
+        "tb21": {
+          "value": 89.4,
+          "vendor_value": 90.8,
+          "harness": "BenchLM published snapshot / Google",
+          "effort": "high",
+          "source": "https://benchlm.ai/benchmarks/terminalbench21",
+          "confidence": "medium"
+        },
+        "tb40": {
+          "value": 19.09,
+          "vendor_value": null,
+          "harness": "tbench.ai official, mini-SWE-agent",
+          "effort": "high",
+          "source": "https://hub.harborframework.com/datasets/terminal-bench/terminal-bench/latest?tab=leaderboard&leaderboard=4-0-0",
+          "confidence": "high"
+        },
+        "deepswe": {
+          "value": 74,
+          "vendor_value": null,
+          "harness": "mini-swe-agent (Datacurve)",
+          "effort": "high",
+          "source": "https://deepswe.datacurve.ai/",
+          "confidence": "high",
+          "cost_per_task": 2.36
+        }
+      },
+      "notes": "Google's third Flash release in 43 days and the highest published TB 2.1 score in the dataset, at Flash-tier pricing. Gains are uneven: coding and tool use jumped while Humanity's Last Exam stayed flat at 45.4 vs 45.7. Access reported for AI Pro and Ultra, not the free tier.",
+      "sources": [
+        "https://www.datacamp.com/blog/gemini-3-8-flash-cyber",
+        "https://felloai.com/ultimate-gemini-model-comparison/"
+      ],
+      "copilot": {
+        "available": true,
+        "release_status": "GA",
+        "category": "Versatile",
+        "input": 0.75,
+        "cached_input": 0.075,
+        "cache_write": null,
+        "output": 3.75,
+        "long_context": null,
+        "promo": "Promotional rate through 2026-12-31.",
+        "source": "github-copilot-pricing"
+      }
+    },
+    {
+      "id": "openai-gpt-6-astra",
+      "vendor": "OpenAI",
+      "name": "GPT-6 Astra",
+      "tier": "frontier",
+      "released": "2026-09-03",
+      "availability": "preview",
+      "anchor": false,
+      "context_window": 1050000,
+      "price_in": 10.0,
+      "price_out": 50.0,
+      "scores": {
+        "tb21": {
+          "value": 87.27,
+          "vendor_value": null,
+          "harness": "vals.ai Terminus 2",
+          "effort": "max",
+          "source": "https://www.vals.ai/benchmarks/terminal-bench-2-1",
+          "confidence": "high"
+        },
+        "tb40": {
+          "value": 58.18,
+          "vendor_value": null,
+          "harness": "tbench.ai official, Codex",
+          "effort": "max",
+          "source": "https://hub.harborframework.com/datasets/terminal-bench/terminal-bench/latest?tab=leaderboard&leaderboard=4-0-0",
+          "confidence": "high",
+          "standardized_value": 57.07,
+          "standardized_source": "https://www.vals.ai/benchmarks/terminal-bench-4"
+        },
+        "deepswe": {
+          "value": 74,
+          "vendor_value": null,
+          "harness": "mini-swe-agent (Datacurve)",
+          "effort": "xhigh",
+          "source": "https://deepswe.datacurve.ai/",
+          "confidence": "high",
+          "cost_per_task": 6.52
+        }
+      },
+      "notes": "Leads the standardized vals.ai TB 2.1 board, with its edge concentrated in the hard split (87.78 vs 84.44 for Sol and Opus 5). Staged rollout from 2026-09-03; knowledge cutoff 2026-04-30. Meets the Critical cybersecurity threshold under OpenAI's Preparedness Framework, so the public model refuses advanced cyber tasks. 128K max output, text and image input.",
+      "sources": [
+        "https://www.yottalabs.ai/post/gpt-6-release-date-rumors-what-is-known-2026",
+        "https://en.wikipedia.org/wiki/GPT-6_Astra"
+      ],
+      "copilot": {
+        "available": true,
+        "release_status": "GA",
+        "category": "Powerful",
+        "input": 10.0,
+        "cached_input": 1.0,
+        "cache_write": 12.5,
+        "output": 50.0,
+        "long_context": {
+          "threshold": 272000,
+          "input": 20.0,
+          "cached_input": 2.0,
+          "cache_write": 25.0,
+          "output": 75.0
+        },
+        "promo": null,
+        "source": "github-copilot-pricing"
+      }
+    },
+    {
+      "id": "xai-grok-4-7",
+      "vendor": "xAI",
+      "name": "Grok 4.7",
+      "tier": "flagship",
+      "released": "2026-09-21",
+      "availability": "ga",
+      "anchor": false,
+      "context_window": 500000,
+      "price_in": 2.0,
+      "price_out": 6.0,
+      "scores": {
+        "tb40": {
+          "value": 38.0,
+          "vendor_value": 38.0,
+          "harness": "xAI self-report",
+          "effort": "high",
+          "source": "https://www.iweaver.ai/blog/grok-4-7/",
+          "confidence": "low",
+          "note": "Not yet on the official TB 4.0 leaderboard. xAI's own table; Grok 4.6 appears there at 20.3, matching the official row."
+        },
+        "deepswe": {
+          "value": 71.0,
+          "vendor_value": 71.0,
+          "harness": "xAI self-report",
+          "effort": "high",
+          "source": "https://www.iweaver.ai/blog/grok-4-7/",
+          "confidence": "low",
+          "note": "xAI reports Grok 4.6 at 65.2 on the same table; Datacurve's independent run has 4.6 at 67."
+        }
+      },
+      "copilot": {
+        "available": true,
+        "release_status": "GA",
+        "category": "Versatile",
+        "input": 2.0,
+        "cached_input": 0.5,
+        "cache_write": null,
+        "output": 6.0,
+        "long_context": {
+          "threshold": 200000,
+          "input": 4.0,
+          "cached_input": 1.0,
+          "output": 12.0
+        },
+        "promo": null,
+        "note": "Gradual rollout from 2026-09-21 on Pro, Pro+, Max, Business and Enterprise.",
+        "source": "github-copilot-pricing"
+      },
+      "notes": "New, larger base model (reported 2.1T parameters) with a longer RL run weighted to multi-hour tasks, plus better self-verification and long-context management. Same price row as Grok 4.5 and 4.6. Artificial Analysis's first read puts it at 46 on its Intelligence Index using 81K output tokens per task. Released 31 days after Musk's first target date. All benchmark figures are xAI's own until independent runs land.",
+      "sources": [
+        "https://www.iweaver.ai/blog/grok-4-7/",
+        "https://cellcog.ai/blog/grok-4-7-release-date/"
+      ]
+    }
+  ],
+  "conflicts": [
+    {
+      "model": "anthropic-opus-4-8",
+      "benchmark": "tb21",
+      "values": [
+        74.6,
+        85.0
+      ],
+      "sources": [
+        "https://www.morphllm.com/claude-benchmarks",
+        "https://codingfleet.com/blog/terminal-bench-leaderboard-2026/"
+      ],
+      "note": "A 10.4-point spread on the same benchmark version. Almost certainly harness and effort-level differences. Ranking Opus 4.8 depends entirely on which you pick."
+    },
+    {
+      "model": "anthropic-opus-5",
+      "benchmark": "tb21",
+      "values": [
+        84.64,
+        89.1
+      ],
+      "sources": [
+        "https://www.vals.ai/benchmarks/terminal-bench-2-1",
+        "https://www.morphllm.com/claude-benchmarks"
+      ],
+      "note": "vals uses Terminus 2 with a refusal fallback to Opus 4.8; excluding those passes gives 81.27."
+    },
+    {
+      "model": "google-gemini-3-7-flash",
+      "benchmark": "tb21",
+      "values": [
+        81.6,
+        85.8
+      ],
+      "sources": [
+        "https://www.datacamp.com/blog/gemini-3-8-flash-cyber",
+        "https://codingfleet.com/blog/terminal-bench-leaderboard-2026/"
+      ],
+      "note": "Vendor GA-table figure vs a third-party restatement."
+    },
+    {
+      "model": "openai-gpt-5-6-terra / luna",
+      "benchmark": "tb21",
+      "values": [
+        87.4,
+        84.3,
+        82.5
+      ],
+      "sources": [
+        "https://techjacksolutions.com/ai-tools/chatgpt/gpt-5-6-pricing/",
+        "https://www.aimadetools.com/blog/gpt-5-6-sol-terra-luna-complete-guide/",
+        "https://qcode.cc/en/gpt-5-6-guide"
+      ],
+      "note": "Sources disagree on whether Terra or Luna is higher, and swap the 84.3 and 82.5 values between them. Verify against the OpenAI launch table before making a routing decision on this."
+    },
+    {
+      "model": "anthropic-sonnet-5",
+      "benchmark": "swe_verified",
+      "values": [
+        85.2,
+        72.7
+      ],
+      "sources": [
+        "https://www.morphllm.com/claude-benchmarks",
+        "https://www.cosmicjs.com/blog/claude-sonnet-5-benchmarks-pricing-developers"
+      ],
+      "note": "Two internally consistent but incompatible scales; the second reports Opus 4.8 at 79.4 where the first reports 88.6. Do not mix them."
+    },
+    {
+      "model": "all",
+      "benchmark": "swe_pro",
+      "values": [],
+      "sources": [
+        "https://www.morphllm.com/swe-bench-pro"
+      ],
+      "note": "Three live score families: vendor aggregate (Fable 5.1 81.2 top), Scale standardized public set (GPT-5.4 xHigh 59.1 top), Scale private commercial set (Opus 4.6 47.1 top). Claude degrades least moving from public to unseen commercial repos, which is the closest proxy to a private production codebase."
+    },
+    {
+      "model": "xai-grok-4-6",
+      "benchmark": "agentic coding",
+      "values": [
+        88.4,
+        54.2
+      ],
+      "sources": [
+        "https://codingfleet.com/blog/terminal-bench-leaderboard-2026/",
+        "https://codersera.com/blog/grok-4-6-launch-guide-2026/"
+      ],
+      "note": "Grok 4.6 posts the highest TB 2.1 of any xAI model while LiveBench measured its agentic coding falling to 54.2 from Grok 4.5's 56.5. Terminal-Bench and LiveBench disagree about the same release in the same direction it was marketed."
+    },
+    {
+      "model": "all",
+      "benchmark": "pricing",
+      "values": [],
+      "sources": [
+        "https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing"
+      ],
+      "note": "The .md rendering of the Copilot pricing page served a stale snapshot during collection, omitting GPT-6 Astra, Grok 4.6, Fable 5.1 and the Gemini 3.7/3.8 Flash rows, and showing pre-cut rates for the GPT-5.6 tiers. The canonical HTML page is authoritative. Fetch that, and check the footnotes: three of the four Google rows are promotional."
+    },
+    {
+      "model": "all",
+      "benchmark": "tb40",
+      "values": [],
+      "sources": [
+        "https://hub.harborframework.com/datasets/terminal-bench/terminal-bench/latest?tab=leaderboard&leaderboard=4-0-0",
+        "https://www.vals.ai/benchmarks/terminal-bench-4"
+      ],
+      "note": "Two TB 4.0 boards disagree by up to 8 points on the same model. The official board lets each vendor run its own harness (Fable 5.1 57.88 in Claude Code); vals.ai forces Terminus 2 on everyone (Fable 5.1 49.49, and 42.42 counting only tasks the requested model served itself). Gemini's official rows ran in mini-SWE-agent, not Google's own harness."
+    },
+    {
+      "model": "all",
+      "benchmark": "descent",
+      "values": [],
+      "sources": [
+        "https://hub.harborframework.com/datasets/terminal-bench/terminal-bench/latest?tab=leaderboard&leaderboard=4-0-0",
+        "https://deepswe.datacurve.ai/"
+      ],
+      "note": "The cheap-matches-flagship pattern depends on the benchmark. On DeepSWE, Gemini 3.8 Flash ties GPT-6 Astra at 74 for a third of the cost per task. On TB 4.0 the same model scores 19 against Astra's 58. Short and medium SWE work has commoditised; multi-hour work outside software has not."
+    }
+  ],
+  "changelog": [
+    {
+      "date": "2026-09-05",
+      "change": "Initial build. 24 records, 2026-01-01 to 2026-09-05, plus 2 pre-window anchors.",
+      "version": "1.0.0",
+      "snapshot": false
+    },
+    {
+      "date": "2026-09-05",
+      "change": "Added xAI (Grok 4.3, 4.5, 4.6). Added GitHub Copilot per-token rates and catalogue metadata to every model. Added a top-level source registry.",
+      "version": "1.1.0",
+      "snapshot": false
+    },
+    {
+      "date": "2026-09-05",
+      "change": "Copilot billing recorded as per-million-token only; multiplier fields dropped. HTML reports output price only.",
+      "version": "1.1.1",
+      "snapshot": false
+    },
+    {
+      "date": "2026-09-05",
+      "change": "Refetched the GitHub Copilot pricing table. Corrected GPT-5.6 Sol ($2.50/$15 to $5.00/$30, promo expired 2026-09-03), Terra ($2/$12 to $2.50/$15), Luna ($0.20/$1.20 to $1.00/$6.00) and Gemini 3.6 Flash ($0.75/$3.75 to $1.50/$7.50). Marked GPT-6 Astra, Fable 5.1, Gemini 3.7/3.8 Flash, Grok 4.3 and Grok 4.6 as not sold through Copilot. Rebuilt copilot_catalog_extra from the live table.",
+      "version": "1.1.2",
+      "snapshot": false
+    },
+    {
+      "date": "2026-09-05",
+      "change": "Corrected Copilot availability from the changelog: Gemini 3.7 Flash, Gemini 3.8 Flash and Claude Fable 5.1 are in Copilot despite being absent from the docs pricing table. Added Copilot deprecation dates for 2026-09-01 and 2026-10-02.",
+      "version": "1.1.3",
+      "snapshot": false
+    },
+    {
+      "date": "2026-09-05",
+      "change": "Reverted GPT-5.6 Luna to $1.00/$6.00. The reported 2026-07-30 price cut is contradicted by the Copilot rate card and has no primary source.",
+      "version": "1.1.4",
+      "snapshot": false
+    },
+    {
+      "date": "2026-09-05",
+      "change": "Rebuilt the Copilot block from the canonical pricing page. Restored GPT-5.6 Luna $0.20/$1.20, Sol $4/$20, Terra $2/$12. Added GPT-6 Astra, Grok 4.6, Fable 5.1 and Gemini 3.7/3.8 Flash as available with confirmed rates. Removed Opus 4.6, Gemini 3.1 Pro and Gemini 3 Flash, retired 2026-09-01.",
+      "version": "1.1.5",
+      "snapshot": false
+    },
+    {
+      "date": "2026-09-22",
+      "change": "Added Grok 4.7 (2026-09-21, in Copilot). Added Terminal-Bench 4.0 (13 models, official board plus vals.ai cross-check) and DeepSWE v1.1 (13 models, single harness, cost per task). Marked TB 2.1 as saturating. Refreshed the Copilot table: Grok 4.7 added, MAI-Code-1-Flash dropped.",
+      "version": "1.2.0",
+      "snapshot": false
+    },
+    {
+      "version": "1.2.1",
+      "date": "2026-09-22",
+      "snapshot": true,
+      "change": "Added data_version and per-entry versions to the changelog. No model, score or price changed. Versions 1.0.0 to 1.2.0 are reconstructed from the session history; 1.2.1 is the first version with a file snapshot."
+    }
+  ],
+  "sources": [
+    {
+      "id": "github-copilot-pricing",
+      "title": "Models and pricing for GitHub Copilot",
+      "publisher": "GitHub Docs",
+      "url": "https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing",
+      "accessed": "2026-09-22",
+      "type": "vendor-docs",
+      "use": "Copilot per-token rates, release status, category and long-context thresholds for every model in the Copilot catalogue"
+    },
+    {
+      "id": "vals-tb21",
+      "title": "Terminal-Bench 2.1 leaderboard",
+      "publisher": "Vals AI",
+      "url": "https://www.vals.ai/benchmarks/terminal-bench-2-1",
+      "accessed": "2026-09-05",
+      "type": "standardized-eval",
+      "use": "Cross-vendor TB 2.1 under one Terminus 2 harness"
+    },
+    {
+      "id": "programbench",
+      "title": "ProgramBench",
+      "publisher": "programbench.com",
+      "url": "https://programbench.com/",
+      "accessed": "2026-09-05",
+      "type": "standardized-eval",
+      "use": "Score paired with measured cost per task"
+    },
+    {
+      "id": "codingfleet-swepro",
+      "title": "SWE-bench Pro leaderboard 2026",
+      "publisher": "CodingFleet",
+      "url": "https://codingfleet.com/blog/swe-bench-pro-leaderboard-2026/",
+      "accessed": "2026-09-05",
+      "type": "aggregator",
+      "use": "SWE-bench Pro vendor-aggregate scores"
+    },
+    {
+      "id": "codingfleet-tb",
+      "title": "Terminal-Bench 2.1 leaderboard",
+      "publisher": "CodingFleet",
+      "url": "https://codingfleet.com/blog/terminal-bench-leaderboard-2026/",
+      "accessed": "2026-09-05",
+      "type": "aggregator",
+      "use": "TB 2.1 entries for Grok, Gemini Flash, open-weight models"
+    },
+    {
+      "id": "morphllm-claude",
+      "title": "Claude benchmarks 2026",
+      "publisher": "morphllm",
+      "url": "https://www.morphllm.com/claude-benchmarks",
+      "accessed": "2026-09-05",
+      "type": "aggregator",
+      "use": "Claude scores with harness labels and API IDs"
+    },
+    {
+      "id": "morphllm-swepro",
+      "title": "SWE-bench Pro leaderboard",
+      "publisher": "morphllm",
+      "url": "https://www.morphllm.com/swe-bench-pro",
+      "accessed": "2026-09-05",
+      "type": "aggregator",
+      "use": "The three incompatible SWE-bench Pro score families"
+    },
+    {
+      "id": "benchlm-tb21",
+      "title": "Terminal-Bench 2.1 leaderboard",
+      "publisher": "BenchLM.ai",
+      "url": "https://benchlm.ai/benchmarks/terminalbench21",
+      "accessed": "2026-09-05",
+      "type": "aggregator",
+      "use": "Published-snapshot TB 2.1 including Gemini 3.8 Flash"
+    },
+    {
+      "id": "benchlm-swev",
+      "title": "SWE-bench Verified leaderboard",
+      "publisher": "BenchLM.ai",
+      "url": "https://benchlm.ai/benchmarks/sweVerified",
+      "accessed": "2026-09-05",
+      "type": "aggregator",
+      "use": "SWE-bench Verified September 2026 snapshot"
+    },
+    {
+      "id": "llmstats-swev",
+      "title": "SWE-bench Verified leaderboard",
+      "publisher": "llm-stats",
+      "url": "https://llm-stats.com/benchmarks/swe-bench-verified",
+      "accessed": "2026-09-05",
+      "type": "aggregator",
+      "use": "Verified scores and cheapest-within-10%-of-leader view"
+    },
+    {
+      "id": "llmstats-tb20",
+      "title": "Terminal-Bench 2.0 leaderboard",
+      "publisher": "llm-stats",
+      "url": "https://llm-stats.com/benchmarks/terminal-bench-2",
+      "accessed": "2026-09-05",
+      "type": "aggregator",
+      "use": "TB 2.0 scores for models never rerun on 2.1"
+    },
+    {
+      "id": "anthropic-opus47",
+      "title": "Introducing Claude Opus 4.7",
+      "publisher": "Anthropic",
+      "url": "https://www.anthropic.com/news/claude-opus-4-7",
+      "accessed": "2026-09-05",
+      "type": "vendor-announcement",
+      "use": "Opus 4.7 release date, pricing, xhigh effort level"
+    },
+    {
+      "id": "anthropic-timeline",
+      "title": "Anthropic Claude model release timeline",
+      "publisher": "hidekazu-konishi.com",
+      "url": "https://hidekazu-konishi.com/entry/anthropic_claude_model_release_timeline.html",
+      "accessed": "2026-09-05",
+      "type": "third-party-timeline",
+      "use": "Claude release dates, Mythos tier, export-control suspension"
+    },
+    {
+      "id": "openai-releases",
+      "title": "OpenAI release index",
+      "publisher": "OpenAI",
+      "url": "https://openai.com/research/index/release/",
+      "accessed": "2026-09-05",
+      "type": "vendor-announcement",
+      "use": "GPT-5.5, GPT-5.6 and GPT-Live release dates"
+    },
+    {
+      "id": "openai-gpt55",
+      "title": "Introducing GPT-5.5",
+      "publisher": "OpenAI",
+      "url": "https://openai.com/index/introducing-gpt-5-5/",
+      "accessed": "2026-09-05",
+      "type": "vendor-announcement",
+      "use": "GPT-5.5 launch date and positioning"
+    },
+    {
+      "id": "openai-astra",
+      "title": "GPT-6 Astra: a new generation of intelligence",
+      "publisher": "OpenAI",
+      "url": "https://openai.com/index/gpt-6-astra/",
+      "accessed": "2026-09-05",
+      "type": "vendor-announcement",
+      "use": "Astra capabilities, evaluation caveats, cyber gating"
+    },
+    {
+      "id": "yotta-astra",
+      "title": "GPT-6 Astra: release date, pricing, benchmarks, rollout",
+      "publisher": "Yotta Labs",
+      "url": "https://www.yottalabs.ai/post/gpt-6-release-date-rumors-what-is-known-2026",
+      "accessed": "2026-09-05",
+      "type": "press",
+      "use": "Astra rate card, context window, staged rollout"
+    },
+    {
+      "id": "aa-gpt56",
+      "title": "GPT-5.6 benchmarks across intelligence, speed and cost",
+      "publisher": "Artificial Analysis",
+      "url": "https://artificialanalysis.ai/articles/gpt-5-6-has-landed",
+      "accessed": "2026-09-05",
+      "type": "standardized-eval",
+      "use": "GPT-5.6 tier pricing and Pareto position"
+    },
+    {
+      "id": "aa-grok43",
+      "title": "xAI launches Grok 4.3 with improved agentic performance and lower pricing",
+      "publisher": "Artificial Analysis",
+      "url": "https://artificialanalysis.ai/articles/xai-launches-grok-4-3-with-improved-agentic-performance-and-lower-pricing",
+      "accessed": "2026-09-05",
+      "type": "standardized-eval",
+      "use": "Grok 4.3 release date, cost-per-intelligence, agentic gains"
+    },
+    {
+      "id": "lushbinary-grok45",
+      "title": "Grok 4.5 developer guide: benchmarks and API",
+      "publisher": "Lushbinary",
+      "url": "https://lushbinary.com/blog/grok-4-5-developer-guide-benchmarks-api-features/",
+      "accessed": "2026-09-05",
+      "type": "press",
+      "use": "Grok 4.5 TB 2.1 and SWE-bench Pro figures, pricing"
+    },
+    {
+      "id": "codersera-grok46",
+      "title": "Grok 4.6 launch guide",
+      "publisher": "Codersera",
+      "url": "https://codersera.com/blog/grok-4-6-launch-guide-2026/",
+      "accessed": "2026-09-05",
+      "type": "press",
+      "use": "Grok 4.6 specs, 200K price cliff, measured agentic regression"
+    },
+    {
+      "id": "codingfleet-grok",
+      "title": "Grok 4.6 vs Grok 4.5",
+      "publisher": "CodingFleet",
+      "url": "https://codingfleet.com/blog/grok-4-6-vs-grok-4-5/",
+      "accessed": "2026-09-05",
+      "type": "aggregator",
+      "use": "Generation-over-generation Grok benchmark deltas"
+    },
+    {
+      "id": "datacamp-gemini38",
+      "title": "Gemini 3.8 Flash: features, benchmarks, pricing",
+      "publisher": "DataCamp",
+      "url": "https://www.datacamp.com/blog/gemini-3-8-flash-cyber",
+      "accessed": "2026-09-05",
+      "type": "press",
+      "use": "Gemini 3.8 Flash TB 2.1 and Flash-line comparison"
+    },
+    {
+      "id": "evolink-gemini37",
+      "title": "Gemini 3.7 Flash release date and API rollout",
+      "publisher": "EvoLink",
+      "url": "https://evolink.ai/blog/gemini-3-7-flash-release-date",
+      "accessed": "2026-09-05",
+      "type": "press",
+      "use": "Gemini 3.7 Flash model card facts and intro pricing window"
+    },
+    {
+      "id": "fello-gemini",
+      "title": "Gemini model comparison 2026",
+      "publisher": "Fello AI",
+      "url": "https://felloai.com/ultimate-gemini-model-comparison/",
+      "accessed": "2026-09-05",
+      "type": "press",
+      "use": "Gemini Flash vs Pro line split, 3.5 Pro delay"
+    },
+    {
+      "id": "codersera-gemini35",
+      "title": "Gemini 3.5 complete guide",
+      "publisher": "Codersera",
+      "url": "https://codersera.com/blog/gemini-3-5-complete-guide-2026/",
+      "accessed": "2026-09-05",
+      "type": "press",
+      "use": "Gemini 3.5 Flash launch, Pro-line freeze"
+    },
+    {
+      "id": "datacamp-sonnet5",
+      "title": "Claude Sonnet 5: features, benchmarks, pricing",
+      "publisher": "DataCamp",
+      "url": "https://www.datacamp.com/blog/claude-sonnet-5",
+      "accessed": "2026-09-05",
+      "type": "press",
+      "use": "Sonnet 5 launch figures"
+    },
+    {
+      "id": "vellum-gpt56",
+      "title": "GPT-5.6 Sol vs Terra vs Luna",
+      "publisher": "Vellum",
+      "url": "https://www.vellum.ai/blog/gpt-5-6-sol-terra-luna-explained",
+      "accessed": "2026-09-05",
+      "type": "press",
+      "use": "Tier tradeoffs, Fable 5 independent TB range, points per dollar"
+    },
+    {
+      "id": "aimadetools-gpt56",
+      "title": "GPT-5.6 Sol, Terra and Luna complete guide",
+      "publisher": "AI Made Tools",
+      "url": "https://www.aimadetools.com/blog/gpt-5-6-sol-terra-luna-complete-guide/",
+      "accessed": "2026-09-05",
+      "type": "press",
+      "use": "July 30 price cuts and per-tier TB 2.1 values"
+    },
+    {
+      "id": "wikipedia-gpt55",
+      "title": "GPT-5.5",
+      "publisher": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/GPT-5.5",
+      "accessed": "2026-09-05",
+      "type": "reference",
+      "use": "Release date and vendor-reported TB 2.0"
+    },
+    {
+      "id": "wikipedia-mythos",
+      "title": "Claude Mythos",
+      "publisher": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Claude_Mythos",
+      "accessed": "2026-09-05",
+      "type": "reference",
+      "use": "Mythos tier, Glasswing access, Fable/Mythos relationship"
+    },
+    {
+      "id": "gist-benchtable",
+      "title": "Cross-vendor benchmark table",
+      "publisher": "GitHub gist",
+      "url": "https://gist.github.com/mbijon/bf97d677f050d36f2d52b2f3fbd43f17",
+      "accessed": "2026-09-05",
+      "type": "aggregator",
+      "use": "Early-2026 SWE-bench and TB 2.0 values with methodology flags"
+    },
+    {
+      "id": "github-copilot-billing-blog",
+      "title": "GitHub Copilot is moving to usage-based billing",
+      "publisher": "The GitHub Blog",
+      "url": "https://github.blog/news-insights/company-news/github-copilot-is-moving-to-usage-based-billing/",
+      "accessed": "2026-09-05",
+      "type": "vendor-blog",
+      "use": "The 2026-06-01 move from premium requests to AI Credits"
+    },
+    {
+      "id": "github-copilot-changelog",
+      "title": "Gemini 3.8 Flash is now available in GitHub Copilot",
+      "publisher": "The GitHub Blog (Changelog)",
+      "url": "https://github.blog/changelog/2026-09-03-gemini-3-8-flash-is-now-available-in-github-copilot/",
+      "accessed": "2026-09-05",
+      "type": "vendor-announcement",
+      "use": "Copilot model additions, plan eligibility, introductory pricing terms and deprecation dates that precede the docs pricing table"
+    },
+    {
+      "id": "tbench-4",
+      "title": "Terminal-Bench 4.0 official leaderboard",
+      "publisher": "Harbor Framework / tbench.ai",
+      "url": "https://hub.harborframework.com/datasets/terminal-bench/terminal-bench/latest?tab=leaderboard&leaderboard=4-0-0",
+      "accessed": "2026-09-22",
+      "type": "standardized-eval",
+      "use": "TB 4.0 scores with each vendor's agent harness"
+    },
+    {
+      "id": "benchlm-tb4",
+      "title": "Terminal-Bench 4.0 leaderboard mirror",
+      "publisher": "BenchLM.ai",
+      "url": "https://benchlm.ai/benchmarks/terminal-bench-4",
+      "accessed": "2026-09-22",
+      "type": "aggregator",
+      "use": "Readable mirror of the official TB 4.0 table, 2026-09-18 snapshot"
+    },
+    {
+      "id": "vals-tb4",
+      "title": "Terminal-Bench 4.0",
+      "publisher": "Vals AI",
+      "url": "https://www.vals.ai/benchmarks/terminal-bench-4",
+      "accessed": "2026-09-22",
+      "type": "standardized-eval",
+      "use": "TB 4.0 under one Terminus 2 harness for every model; cost per task"
+    },
+    {
+      "id": "deepswe",
+      "title": "DeepSWE v1.1 leaderboard",
+      "publisher": "Datacurve",
+      "url": "https://deepswe.datacurve.ai/",
+      "accessed": "2026-09-22",
+      "type": "standardized-eval",
+      "use": "Long-horizon SWE, one harness for all models, pass@1 with cost per task"
+    },
+    {
+      "id": "iweaver-grok47",
+      "title": "Grok 4.7: benchmarks, specs and Grok 4.6 comparison",
+      "publisher": "iWeaver",
+      "url": "https://www.iweaver.ai/blog/grok-4-7/",
+      "accessed": "2026-09-22",
+      "type": "press",
+      "use": "Grok 4.7 specs, xAI benchmark table, Copilot rollout"
+    },
+    {
+      "id": "cellcog-grok47",
+      "title": "Grok 4.7 release date",
+      "publisher": "CellCog",
+      "url": "https://cellcog.ai/blog/grok-4-7-release-date/",
+      "accessed": "2026-09-22",
+      "type": "press",
+      "use": "Grok 4.7 launch date, pricing, first Artificial Analysis read"
+    }
+  ],
+  "copilot_catalog_extra": [
+    {
+      "name": "GPT-5.4 nano",
+      "vendor": "OpenAI",
+      "category": "Lightweight",
+      "input": 0.2,
+      "cached_input": 0.02,
+      "output": 1.25
+    },
+    {
+      "name": "MAI-Code-1.1-Flash",
+      "vendor": "Microsoft",
+      "category": "Lightweight",
+      "input": 0.2,
+      "cached_input": 0.02,
+      "output": 1.2
+    },
+    {
+      "name": "GPT-5 mini",
+      "vendor": "OpenAI",
+      "category": "Lightweight",
+      "input": 0.25,
+      "cached_input": 0.025,
+      "output": 2.0
+    },
+    {
+      "name": "Kimi K2.7 Code",
+      "vendor": "Moonshot AI",
+      "category": "Versatile",
+      "input": 0.95,
+      "cached_input": 0.19,
+      "output": 4.0
+    },
+    {
+      "name": "GPT-5.4 mini",
+      "vendor": "OpenAI",
+      "category": "Lightweight",
+      "input": 0.75,
+      "cached_input": 0.075,
+      "output": 4.5
+    },
+    {
+      "name": "Claude Sonnet 4",
+      "vendor": "Anthropic",
+      "category": "Versatile",
+      "input": 3.0,
+      "cached_input": 0.3,
+      "cache_write": 3.75,
+      "output": 15.0
+    },
+    {
+      "name": "Kimi K3",
+      "vendor": "Moonshot AI",
+      "category": "Powerful",
+      "input": 3.0,
+      "cached_input": 0.3,
+      "output": 15.0
+    },
+    {
+      "name": "Claude Opus 4.8 (fast mode, preview)",
+      "vendor": "Anthropic",
+      "category": "Powerful",
+      "input": 10.0,
+      "cached_input": 1.0,
+      "cache_write": 12.5,
+      "output": 50.0
+    }
+  ],
+  "copilot_meta": {
+    "source": "github-copilot-pricing",
+    "fetched": "2026-09-22",
+    "billing": "Usage-based, priced per million tokens. Input, cached input and output tokens convert to GitHub AI Credits at each model's published rate, 1 AI credit = $0.01. Individual plans (Free, Pro, Pro+, Max) carry their own credit allowance; Business and Enterprise allowances are per-user and pooled at the billing entity. Usage past the allowance bills at the rates below. Code completions and next edit suggestions are not billed in AI credits.",
+    "plans": {
+      "Individual": "Free, Pro, Pro+, Max",
+      "Organization": "Business and Enterprise, pooled allowances"
+    },
+    "notes": [
+      "GitHub states its rates match what the providers charge directly, with no markup on the model layer.",
+      "Gemini 3.6, 3.7 and 3.8 Flash all sit at $0.75 input and $3.75 output on a promotional rate that ends 2026-12-31.",
+      "GPT-5.6 Sol, Terra, Luna and GPT-6 Astra carry a cache write cost on top of cached input. Earlier OpenAI models do not. Anthropic models all do.",
+      "Copilot code review does not disclose which model it picks, so its per-token cost varies between reviews, and it also consumes GitHub Actions minutes.",
+      "Legacy annual Copilot Pro and Pro+ plans on request-based billing still use model multipliers; every current plan is per-token.",
+      "Between 2026-09-05 and 2026-09-22 the table added Grok 4.7 and dropped MAI-Code-1-Flash. Every other rate is unchanged."
+    ],
+    "sources": [
+      "github-copilot-pricing",
+      "github-copilot-changelog"
+    ]
+  }
+}
