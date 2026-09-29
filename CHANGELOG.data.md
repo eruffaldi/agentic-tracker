@@ -4,9 +4,9 @@ Generated from `data/agentic-model-timeline.json` by `tools/build.py`. Do not ed
 
 Versions marked *reconstructed* were rebuilt from session history; no file snapshot exists for them.
 
-## 1.2.2 — 2026-09-23
+## 1.2.3 — 2026-09-29
 
-Added GPT-6 Sol and GPT-6 Luna from OpenAI's September 22 announcement, including official DeepSWE v1.1 results and refreshed Copilot rates. Replaced GPT-6 Astra rumor citations with OpenAI primary sources and refreshed its DeepSWE cost per task.
+Extended the snapshot through September 29. Added Claude Opus 5.5, Claude Sonnet 5.5 and GPT-6.1 Sol; refreshed Vals Terminal-Bench 4.0 standardized scores for tracked models and recorded Grok 4.7 and GPT-6 Sol discrepancies. Refreshed GitHub Copilot rates, plan allowances, source dates and LTS metadata; recorded benchmark and GPT-5.6 Sol API/Copilot price conflicts.
 
 ## 1.2.1 — 2026-09-22
 

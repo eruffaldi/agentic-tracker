@@ -124,7 +124,6 @@
     var narrow = window.innerWidth < 620;
     var W = narrow ? 380 : 760, H = narrow ? 520 : 430;
     var L = narrow ? 30 : 36, R = narrow ? 12 : 16, T = 16, B = 40;
-    var s = ['<svg id="chart" viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg">'];
 
     var all = state.view === 'copilot'
       ? withScore(b).filter(function(m){ return copilotPrice(m) !== null; })
@@ -139,6 +138,22 @@
       return;
     }
 
+    var recentUnscored = [];
+    if(state.view === 'timeline'){
+      var latestScored = Math.max.apply(null, all.map(function(m){ return d2n(m.released); }));
+      recentUnscored = DATA.models.filter(function(m){
+        return !m.anchor && (!m.scores || !m.scores[b] || typeof m.scores[b].value !== 'number') &&
+          d2n(m.released) >= latestScored && (state.vendor==='all' || m.vendor===state.vendor);
+      });
+      if(recentUnscored.length){
+        var laneExtra = Math.max(0, recentUnscored.length-1)*18;
+        H += laneExtra;
+        B = 76+laneExtra;
+      }
+    }
+
+    var s = ['<svg id="chart" viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg">'];
+
     var ys = all.map(function(m){ return m.scores[b].value; });
     var y0 = Math.floor((Math.min.apply(null,ys)-5)/5)*5, y1 = Math.ceil((Math.max.apply(null,ys)+5)/5)*5;
     function Y(v){ return T + (1-(v-y0)/(y1-y0))*(H-T-B); }
@@ -152,6 +167,7 @@
 
     if(state.view === 'timeline'){
       var xs = all.map(function(m){ return d2n(m.released); });
+      recentUnscored.forEach(function(m){ xs.push(d2n(m.released)); });
       var x0 = Math.min.apply(null,xs) - 8*DAY, x1 = Math.max.apply(null,xs) + 10*DAY;
       X = function(t){ return L + (t-x0)/(x1-x0)*(W-L-R); };
       for(var mo=0; mo<=9; mo++){
@@ -175,7 +191,18 @@
           (sc.confidence==='low'?' \u2014 vendor self-report':'')));
         items.push({m:m, x:cx, y:cy, v:m.scores[b].value});
       });
-      caption = 'Dashed lines connect each budget-tier release back to the last flagship it overtook. Squares are frontier and flagship tiers, circles are mid and efficient tiers.';
+      if(recentUnscored.length){
+        var laneY = H-B+46;
+        s.push('<text class="axlab" x="'+L+'" y="'+laneY+'">No '+esc(def.name)+' score</text>');
+        recentUnscored.forEach(function(m,index){
+          var ux=X(d2n(m.released)), uy=laneY+15+index*18;
+          s.push('<path class="unscored-release" d="M'+ux+' '+(uy-4)+' L'+(ux+4)+' '+uy+' L'+ux+' '+(uy+4)+' L'+(ux-4)+' '+uy+' Z" fill="var(--panel)" stroke="'+col(m.vendor)+'" stroke-width="2"><title>'+esc(shortName(m.name))+' \u2014 '+esc(m.released)+' \u2014 no published '+esc(def.name)+' score</title></path>');
+          var labelAnchor = ux > W*0.72 ? 'end' : 'start';
+          s.push('<text class="plab" x="'+(labelAnchor==='end'?ux-8:ux+8)+'" y="'+(uy+3)+'" text-anchor="'+labelAnchor+'" fill="'+col(m.vendor)+'">'+esc(shortName(m.name))+'</text>');
+        });
+      }
+      caption = 'Dashed lines connect each budget-tier release back to the last flagship it overtook. Squares are frontier and flagship tiers, circles are mid and efficient tiers.'+
+        (recentUnscored.length?' Recent releases without a published score appear in a separate lane.':'');
     } else {
       var ps = all.map(copilotPrice);
       var lo = Math.log10(Math.min.apply(null,ps)*0.7), hi = Math.log10(Math.max.apply(null,ps)*1.4);

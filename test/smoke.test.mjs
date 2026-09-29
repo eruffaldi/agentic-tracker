@@ -48,6 +48,15 @@ test("default chart draws a point per scored model", () => {
   assert.equal(pts, scored);
 });
 
+test("timeline marks GPT-6.1 Sol without inventing a score", () => {
+  const { doc } = load();
+  const markers = [...doc.querySelectorAll("#chart .unscored-release")];
+  assert.ok(markers.some((marker) => /GPT-6\.1 Sol.*2026-09-29.*no published DeepSWE score/.test(marker.querySelector("title").textContent)));
+  const rows = markers.map((marker) => marker.getAttribute("d").match(/^M[-.\d]+ ([-.\d]+)/)?.[1]);
+  assert.equal(new Set(rows).size, markers.length, "unscored release markers use separate rows");
+  assert.match(doc.getElementById("chart").textContent, /GPT-6\.1 Sol/);
+});
+
 test("every benchmark x view x vendor combination renders without error", () => {
   const { dom, doc, errors } = load();
   const click = (el) => el.dispatchEvent(new dom.window.MouseEvent("click", { bubbles: true }));

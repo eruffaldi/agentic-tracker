@@ -1,10 +1,10 @@
 {
   "schema_version": "1.2",
-  "data_version": "1.2.2",
-  "generated_at": "2026-09-23",
+  "data_version": "1.2.3",
+  "generated_at": "2026-09-29",
   "window": {
     "from": "2026-01-01",
-    "to": "2026-09-23"
+    "to": "2026-09-29"
   },
   "benchmarks": {
     "tb21": {
@@ -788,7 +788,10 @@
           "harness": "tbench.ai official, Claude Code",
           "effort": "max",
           "source": "https://hub.harborframework.com/datasets/terminal-bench/terminal-bench/latest?tab=leaderboard&leaderboard=4-0-0",
-          "confidence": "high"
+          "confidence": "high",
+          "standardized_value": 41.41,
+          "standardized_source": "https://www.vals.ai/benchmarks/terminal-bench-4",
+          "cost_per_task": 30.34
         },
         "deepswe": {
           "value": 70,
@@ -1032,7 +1035,10 @@
           "harness": "tbench.ai official, Codex",
           "effort": "max",
           "source": "https://hub.harborframework.com/datasets/terminal-bench/terminal-bench/latest?tab=leaderboard&leaderboard=4-0-0",
-          "confidence": "high"
+          "confidence": "high",
+          "standardized_value": 37.88,
+          "standardized_source": "https://www.vals.ai/benchmarks/terminal-bench-4",
+          "cost_per_task": 7.98
         },
         "deepswe": {
           "value": 73,
@@ -1116,7 +1122,10 @@
           "harness": "tbench.ai official, Codex",
           "effort": "max",
           "source": "https://hub.harborframework.com/datasets/terminal-bench/terminal-bench/latest?tab=leaderboard&leaderboard=4-0-0",
-          "confidence": "high"
+          "confidence": "high",
+          "standardized_value": 22.73,
+          "standardized_source": "https://www.vals.ai/benchmarks/terminal-bench-4",
+          "cost_per_task": 5.6
         }
       },
       "notes": "Beats the prior flagship GPT-5.5 on TB 2.1 (87.4 vs 85.6 on the same OpenAI table) at 40% of its price.",
@@ -1345,8 +1354,9 @@
           "effort": "xhigh",
           "source": "https://hub.harborframework.com/datasets/terminal-bench/terminal-bench/latest?tab=leaderboard&leaderboard=4-0-0",
           "confidence": "high",
-          "standardized_value": 45.45,
-          "standardized_source": "https://www.vals.ai/benchmarks/terminal-bench-4"
+          "standardized_value": 53.53,
+          "standardized_source": "https://www.vals.ai/benchmarks/terminal-bench-4",
+          "cost_per_task": 18.6
         },
         "deepswe": {
           "value": 74,
@@ -1552,8 +1562,9 @@
           "effort": "max",
           "source": "https://hub.harborframework.com/datasets/terminal-bench/terminal-bench/latest?tab=leaderboard&leaderboard=4-0-0",
           "confidence": "high",
-          "standardized_value": 49.49,
-          "standardized_source": "https://www.vals.ai/benchmarks/terminal-bench-4"
+          "standardized_value": 58.08,
+          "standardized_source": "https://www.vals.ai/benchmarks/terminal-bench-4",
+          "cost_per_task": 17.18
         }
       },
       "notes": "Highest SWE-bench Pro on record. Anthropic still names Opus 5 the starting point for most workloads and reserves Fable 5.1 for demanding long-horizon work. Three API changes break Fable 5 code.",
@@ -1665,8 +1676,9 @@
           "effort": "max",
           "source": "https://hub.harborframework.com/datasets/terminal-bench/terminal-bench/latest?tab=leaderboard&leaderboard=4-0-0",
           "confidence": "high",
-          "standardized_value": 57.07,
-          "standardized_source": "https://www.vals.ai/benchmarks/terminal-bench-4"
+          "standardized_value": 59.6,
+          "standardized_source": "https://www.vals.ai/benchmarks/terminal-bench-4",
+          "cost_per_task": 9.58
         },
         "deepswe": {
           "value": 74,
@@ -1714,6 +1726,15 @@
       "price_in": 2.0,
       "price_out": 10.0,
       "scores": {
+        "tb40": {
+          "value": 44.44,
+          "vendor_value": null,
+          "harness": "mini-SWE-agent (Vals AI)",
+          "effort": "max",
+          "source": "https://www.vals.ai/benchmarks/terminal-bench-4",
+          "confidence": "high",
+          "cost_per_task": 5.79
+        },
         "deepswe": {
           "value": 68.8,
           "vendor_value": 68.8,
@@ -1723,7 +1744,7 @@
           "confidence": "low"
         }
       },
-      "notes": "Released September 22, 2026; API model ID gpt-6-sol. OpenAI reports 68.8% on DeepSWE v1.1 at max effort. Datacurve had not yet published an independent GPT-6 run when checked.",
+      "notes": "Released September 22, 2026; API model ID gpt-6-sol. OpenAI reports 68.8% on DeepSWE v1.1 at max effort; Datacurve's leaderboard still had no independent GPT-6 run on September 29. Vals' Sep 29 Terminal-Bench 4.0 leaderboard reports 44.44% with mini-SWE-agent at max effort; its model profile still shows 34.34%.",
       "sources": [
         "https://openai.com/index/introducing-gpt-6-sol-and-luna/",
         "https://developers.openai.com/api/docs/models"
@@ -1759,6 +1780,14 @@
       "price_in": 0.1,
       "price_out": 0.5,
       "scores": {
+        "tb40": {
+          "value": 9.6,
+          "vendor_value": null,
+          "harness": "mini-SWE-agent (Vals AI)",
+          "effort": "max",
+          "source": "https://www.vals.ai/models/openai_gpt-6-luna",
+          "confidence": "high"
+        },
         "deepswe": {
           "value": 66.6,
           "vendor_value": 66.6,
@@ -1768,7 +1797,7 @@
           "confidence": "low"
         }
       },
-      "notes": "Released September 22, 2026; API model ID gpt-6-luna. OpenAI reports 66.6% on DeepSWE v1.1 at max effort. Datacurve had not yet published an independent GPT-6 run when checked.",
+      "notes": "Released September 22, 2026; API model ID gpt-6-luna. OpenAI reports 66.6% on DeepSWE v1.1 at max effort; Datacurve's leaderboard still had no independent GPT-6 run on September 29. Vals reports 9.60% on Terminal-Bench 4.0 with mini-SWE-agent at max effort.",
       "sources": [
         "https://openai.com/index/introducing-gpt-6-sol-and-luna/",
         "https://developers.openai.com/api/docs/models"
@@ -1805,13 +1834,14 @@
       "price_out": 6.0,
       "scores": {
         "tb40": {
-          "value": 38.0,
+          "value": 28.79,
           "vendor_value": 38.0,
-          "harness": "xAI self-report",
-          "effort": "high",
-          "source": "https://www.iweaver.ai/blog/grok-4-7/",
-          "confidence": "low",
-          "note": "Not yet on the official TB 4.0 leaderboard. xAI's own table; Grok 4.6 appears there at 20.3, matching the official row."
+          "harness": "mini-SWE-agent (Vals AI) / xAI self-report",
+          "effort": "max / high",
+          "source": "https://www.vals.ai/benchmarks/terminal-bench-4",
+          "confidence": "high",
+          "cost_per_task": 18.09,
+          "note": "Vals reports 28.79%; xAI's reported value is 38.0% at high effort. These are independently sourced results and are not directly comparable."
         },
         "deepswe": {
           "value": 71.0,
@@ -1841,11 +1871,131 @@
         "note": "Gradual rollout from 2026-09-21 on Pro, Pro+, Max, Business and Enterprise.",
         "source": "github-copilot-pricing"
       },
-      "notes": "New, larger base model (reported 2.1T parameters) with a longer RL run weighted to multi-hour tasks, plus better self-verification and long-context management. Same price row as Grok 4.5 and 4.6. Artificial Analysis's first read puts it at 46 on its Intelligence Index using 81K output tokens per task. Released 31 days after Musk's first target date. All benchmark figures are xAI's own until independent runs land.",
+      "notes": "New, larger base model (reported 2.1T parameters) with a longer RL run weighted to multi-hour tasks, plus better self-verification and long-context management. Same price row as Grok 4.5 and 4.6. Artificial Analysis's first read puts it at 46 on its Intelligence Index using 81K output tokens per task. Released 31 days after Musk's first target date. Vals independently reports 28.79% on TB 4.0 at $18.09 per task; the 71% DeepSWE result remains xAI-reported.",
       "sources": [
         "https://www.iweaver.ai/blog/grok-4-7/",
         "https://cellcog.ai/blog/grok-4-7-release-date/"
       ]
+    },
+    {
+      "id": "anthropic-opus-5-5",
+      "vendor": "Anthropic",
+      "name": "Claude Opus 5.5",
+      "tier": "flagship",
+      "released": "2026-09-22",
+      "availability": "ga",
+      "anchor": false,
+      "context_window": 1000000,
+      "price_in": 4.0,
+      "price_out": 20.0,
+      "scores": {
+        "tb40": {
+          "value": 65.15,
+          "vendor_value": 66.4,
+          "harness": "mini-SWE-agent (Vals AI); Anthropic Claude Code",
+          "effort": "max / xhigh",
+          "source": "https://www.vals.ai/benchmarks/terminal-bench-4",
+          "confidence": "medium",
+          "standardized_value": 65.15,
+          "standardized_source": "https://www.vals.ai/benchmarks/terminal-bench-4"
+        }
+      },
+      "notes": "1M context, 128K max output. Anthropic reports 66.4% on Terminal-Bench 4.0 at xhigh effort. Vals' Sep 29 leaderboard reports 65.15% under mini-SWE-agent; its model profile still lists an earlier 61.62% run, recorded as a source conflict. API pricing is $4/$20 per 1M input/output tokens.",
+      "sources": [
+        "https://www.anthropic.com/claude-opus-5-5",
+        "https://platform.claude.com/docs/en/models/opus-5-5/overview",
+        "https://www.vals.ai/benchmarks/terminal-bench-4"
+      ],
+      "copilot": {
+        "available": true,
+        "release_status": "GA",
+        "category": "Powerful",
+        "input": 4.0,
+        "cached_input": 0.2,
+        "cache_write": 5.0,
+        "output": 20.0,
+        "long_context": null,
+        "promo": null,
+        "source": "github-copilot-pricing"
+      }
+    },
+    {
+      "id": "anthropic-sonnet-5-5",
+      "vendor": "Anthropic",
+      "name": "Claude Sonnet 5.5",
+      "tier": "mid",
+      "released": "2026-09-28",
+      "availability": "ga",
+      "anchor": false,
+      "context_window": 1000000,
+      "price_in": 2.0,
+      "price_out": 10.0,
+      "scores": {
+        "tb40": {
+          "value": 64.14,
+          "vendor_value": 70.6,
+          "harness": "mini-SWE-agent (Vals AI); Anthropic-reported",
+          "effort": "max / medium",
+          "source": "https://www.vals.ai/benchmarks/terminal-bench-4",
+          "confidence": "medium",
+          "standardized_value": 64.14,
+          "standardized_source": "https://www.vals.ai/benchmarks/terminal-bench-4"
+        }
+      },
+      "notes": "1M context, 128K max output. Anthropic reports 70.6% on Terminal-Bench 4.0; its announcement describes the medium-effort score. Vals' Sep 29 standardized mini-SWE-agent run reports 64.14% at max effort. API pricing is $2/$10 per 1M input/output tokens.",
+      "sources": [
+        "https://www.anthropic.com/claude-sonnet-5-5",
+        "https://platform.claude.com/docs/en/models/sonnet-5-5/overview",
+        "https://www.vals.ai/benchmarks/terminal-bench-4"
+      ],
+      "copilot": {
+        "available": true,
+        "release_status": "GA",
+        "category": "Versatile",
+        "input": 2.0,
+        "cached_input": 0.2,
+        "cache_write": 2.5,
+        "output": 10.0,
+        "long_context": null,
+        "promo": null,
+        "source": "github-copilot-pricing"
+      }
+    },
+    {
+      "id": "openai-gpt-6-1-sol",
+      "vendor": "OpenAI",
+      "name": "GPT-6.1 Sol",
+      "tier": "flagship",
+      "released": "2026-09-29",
+      "availability": "ga",
+      "anchor": false,
+      "context_window": 1050000,
+      "price_in": 2.0,
+      "price_out": 10.0,
+      "scores": {},
+      "notes": "API model ID gpt-6.1-sol; 922K maximum input and 128K maximum output. OpenAI describes a DeepSWE v1.1 result but does not publish its exact score in the announcement, and the public leaderboard had not yet added the model as of September 29. No benchmark score is recorded pending a published value.",
+      "sources": [
+        "https://openai.com/index/introducing-gpt-6-1-sol/",
+        "https://developers.openai.com/api/docs/models/gpt-6.1-sol"
+      ],
+      "copilot": {
+        "available": true,
+        "release_status": "GA",
+        "category": "Powerful",
+        "input": 2.0,
+        "cached_input": 0.1,
+        "cache_write": 2.5,
+        "output": 10.0,
+        "long_context": {
+          "threshold": 272000,
+          "input": 4.0,
+          "cached_input": 0.2,
+          "cache_write": 5.0,
+          "output": 15.0
+        },
+        "promo": null,
+        "source": "github-copilot-pricing"
+      }
     }
   ],
   "conflicts": [
@@ -1941,11 +2091,69 @@
     {
       "model": "all",
       "benchmark": "pricing",
-      "values": [],
-      "sources": [
-        "https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing"
+      "values": [
+        4.0,
+        20.0,
+        5.0,
+        30.0
       ],
-      "note": "The .md rendering of the Copilot pricing page served a stale snapshot during collection, omitting GPT-6 Astra, Grok 4.6, Fable 5.1 and the Gemini 3.7/3.8 Flash rows, and showing pre-cut rates for the GPT-5.6 tiers. The canonical HTML page is authoritative. Fetch that, and check the footnotes: three of the four Google rows are promotional."
+      "sources": [
+        "https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing",
+        "https://developers.openai.com/api/docs/models/gpt-5.6-sol"
+      ],
+      "note": "The current Copilot rate card lists GPT-5.6 Sol at $4/$20 per 1M input/output tokens, while OpenAI's current API documentation lists $5/$30. Use the Copilot rate for Copilot usage and the vendor rate for direct API usage; the prior stale-page warning is resolved."
+    },
+    {
+      "model": "anthropic-opus-5-5",
+      "benchmark": "tb40",
+      "values": [
+        65.15,
+        61.62
+      ],
+      "sources": [
+        "https://www.vals.ai/benchmarks/terminal-bench-4",
+        "https://www.vals.ai/models/anthropic_claude-opus-5-5"
+      ],
+      "note": "Vals' benchmark page updated September 29 reports 65.15%, while its model profile still reports 61.62% from an earlier run. Retain the updated benchmark-board value and flag the stale profile discrepancy."
+    },
+    {
+      "model": "xai-grok-4-7",
+      "benchmark": "tb40",
+      "values": [
+        38.0,
+        28.79
+      ],
+      "sources": [
+        "https://www.iweaver.ai/blog/grok-4-7/",
+        "https://www.vals.ai/benchmarks/terminal-bench-4"
+      ],
+      "note": "xAI's reported 38.0% and Vals' standardized mini-SWE-agent result of 28.79% use different harnesses/settings; retain the standardized result for cross-vendor comparison and preserve the vendor figure separately."
+    },
+    {
+      "model": "openai-gpt-6-sol",
+      "benchmark": "tb40",
+      "values": [
+        34.34,
+        44.44
+      ],
+      "sources": [
+        "https://www.vals.ai/models/openai_gpt-6-sol",
+        "https://www.vals.ai/benchmarks/terminal-bench-4"
+      ],
+      "note": "Vals' Sep 29 leaderboard reports 44.44%, while the model profile still shows 34.34%; the leaderboard is treated as the updated result."
+    },
+    {
+      "model": "anthropic-sonnet-5-5",
+      "benchmark": "tb40",
+      "values": [
+        64.14,
+        70.6
+      ],
+      "sources": [
+        "https://www.vals.ai/benchmarks/terminal-bench-4",
+        "https://www.anthropic.com/claude-sonnet-5-5"
+      ],
+      "note": "The standardized Vals mini-SWE-agent result is 64.14% at max effort; Anthropic reports 70.6% at medium effort. These runs use different settings and should not be conflated."
     },
     {
       "model": "all",
@@ -1955,7 +2163,7 @@
         "https://hub.harborframework.com/datasets/terminal-bench/terminal-bench/latest?tab=leaderboard&leaderboard=4-0-0",
         "https://www.vals.ai/benchmarks/terminal-bench-4"
       ],
-      "note": "Two TB 4.0 boards disagree by up to 8 points on the same model. The official board lets each vendor run its own harness (Fable 5.1 57.88 in Claude Code); vals.ai forces Terminus 2 on everyone (Fable 5.1 49.49, and 42.42 counting only tasks the requested model served itself). Gemini's official rows ran in mini-SWE-agent, not Google's own harness."
+      "note": "The official TB 4.0 leaderboard uses vendor-specific harnesses, while Vals AI uses mini-SWE-agent consistently across models. Score differences reflect harness and evaluation setup; use the Vals values for cross-vendor comparison and retain official vendor-harness scores separately where available."
     },
     {
       "model": "all",
@@ -2024,10 +2232,10 @@
       "change": "Added data_version and per-entry versions to the changelog. No model, score or price changed. Versions 1.0.0 to 1.2.0 are reconstructed from the session history; 1.2.1 is the first version with a file snapshot."
     },
     {
-      "version": "1.2.2",
-      "date": "2026-09-23",
+      "version": "1.2.3",
+      "date": "2026-09-29",
       "snapshot": true,
-      "change": "Added GPT-6 Sol and GPT-6 Luna from OpenAI's September 22 announcement, including official DeepSWE v1.1 results and refreshed Copilot rates. Replaced GPT-6 Astra rumor citations with OpenAI primary sources and refreshed its DeepSWE cost per task."
+      "change": "Extended the snapshot through September 29. Added Claude Opus 5.5, Claude Sonnet 5.5 and GPT-6.1 Sol; refreshed Vals Terminal-Bench 4.0 standardized scores for tracked models and recorded Grok 4.7 and GPT-6 Sol discrepancies. Refreshed GitHub Copilot rates, plan allowances, source dates and LTS metadata; recorded benchmark and GPT-5.6 Sol API/Copilot price conflicts."
     }
   ],
   "sources": [
@@ -2036,7 +2244,7 @@
       "title": "Models and pricing for GitHub Copilot",
       "publisher": "GitHub Docs",
       "url": "https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing",
-      "accessed": "2026-09-23",
+      "accessed": "2026-09-29",
       "type": "vendor-docs",
       "use": "Copilot per-token rates, release status, category and long-context thresholds for every model in the Copilot catalogue"
     },
@@ -2351,7 +2559,7 @@
       "title": "Terminal-Bench 4.0 official leaderboard",
       "publisher": "Harbor Framework / tbench.ai",
       "url": "https://hub.harborframework.com/datasets/terminal-bench/terminal-bench/latest?tab=leaderboard&leaderboard=4-0-0",
-      "accessed": "2026-09-23",
+      "accessed": "2026-09-29",
       "type": "standardized-eval",
       "use": "TB 4.0 scores with each vendor's agent harness"
     },
@@ -2369,16 +2577,16 @@
       "title": "Terminal-Bench 4.0",
       "publisher": "Vals AI",
       "url": "https://www.vals.ai/benchmarks/terminal-bench-4",
-      "accessed": "2026-09-23",
+      "accessed": "2026-09-29",
       "type": "standardized-eval",
-      "use": "TB 4.0 under one Terminus 2 harness for every model; cost per task"
+      "use": "TB 4.0 standardized mini-SWE-agent runs for cross-vendor comparison; cost per task"
     },
     {
       "id": "deepswe",
       "title": "DeepSWE v1.1 leaderboard",
       "publisher": "Datacurve",
       "url": "https://deepswe.datacurve.ai/",
-      "accessed": "2026-09-23",
+      "accessed": "2026-09-29",
       "type": "standardized-eval",
       "use": "Long-horizon SWE, one harness for all models, pass@1 with cost per task"
     },
@@ -2399,6 +2607,51 @@
       "accessed": "2026-09-22",
       "type": "press",
       "use": "Grok 4.7 launch date, pricing, first Artificial Analysis read"
+    },
+    {
+      "id": "anthropic-opus55",
+      "title": "Introducing Claude Opus 5.5",
+      "publisher": "Anthropic",
+      "url": "https://www.anthropic.com/claude-opus-5-5",
+      "accessed": "2026-09-29",
+      "type": "vendor-announcement",
+      "use": "Opus 5.5 release date, API prices and vendor-reported Terminal-Bench 4.0 score"
+    },
+    {
+      "id": "anthropic-sonnet55",
+      "title": "Introducing Claude Sonnet 5.5",
+      "publisher": "Anthropic",
+      "url": "https://www.anthropic.com/claude-sonnet-5-5",
+      "accessed": "2026-09-29",
+      "type": "vendor-announcement",
+      "use": "Sonnet 5.5 release date, API prices and vendor-reported Terminal-Bench 4.0 score"
+    },
+    {
+      "id": "openai-gpt61sol",
+      "title": "GPT-6.1 Sol",
+      "publisher": "OpenAI",
+      "url": "https://openai.com/index/introducing-gpt-6-1-sol/",
+      "accessed": "2026-09-29",
+      "type": "vendor-announcement",
+      "use": "GPT-6.1 Sol release date, availability, pricing and benchmark claims"
+    },
+    {
+      "id": "openai-gpt61sol-docs",
+      "title": "GPT-6.1 Sol model documentation",
+      "publisher": "OpenAI Developers",
+      "url": "https://developers.openai.com/api/docs/models/gpt-6.1-sol",
+      "accessed": "2026-09-29",
+      "type": "vendor-docs",
+      "use": "GPT-6.1 Sol API model ID, context window, token limits and prices"
+    },
+    {
+      "id": "github-copilot-lts",
+      "title": "Base and long-term support (LTS) models",
+      "publisher": "GitHub Docs",
+      "url": "https://docs.github.com/en/copilot/concepts/models/fallback-and-lts-models",
+      "accessed": "2026-09-29",
+      "type": "vendor-docs",
+      "use": "Copilot base and LTS model designation"
     }
   ],
   "copilot_catalog_extra": [
@@ -2471,19 +2724,24 @@
   ],
   "copilot_meta": {
     "source": "github-copilot-pricing",
-    "fetched": "2026-09-23",
-    "billing": "Usage-based, priced per million tokens. Input, cached input and output tokens convert to GitHub AI Credits at each model's published rate, 1 AI credit = $0.01. Individual plans (Free, Pro, Pro+, Max) carry their own credit allowance; Business and Enterprise allowances are per-user and pooled at the billing entity. Usage past the allowance bills at the rates below. Code completions and next edit suggestions are not billed in AI credits.",
+    "fetched": "2026-09-29",
+    "billing": "Usage-based, priced per million tokens. Input, cached input and output tokens convert to GitHub AI Credits at each model's published rate, 1 AI credit = $0.01. Individual paid plans have monthly base and flex credits; Business and Enterprise allowances are pooled at the billing entity. Additional usage is billed at published per-token rates. Code completions and next edit suggestions are not billed in AI credits.",
     "plans": {
-      "Individual": "Free, Pro, Pro+, Max",
-      "Organization": "Business and Enterprise, pooled allowances"
+      "Copilot Free": "AI credit allowance; amount not specified on the checked billing page",
+      "Copilot Pro": "$10/month; 1,000 base + 500 flex = 1,500 credits",
+      "Copilot Pro+": "$39/month; 3,900 base + 3,100 flex = 7,000 credits",
+      "Copilot Max": "$100/month; 10,000 base + 10,000 flex = 20,000 credits",
+      "Copilot Business": "1,900 credits per user/month, pooled at billing entity",
+      "Copilot Enterprise": "3,900 credits per user/month, pooled at billing entity"
     },
       "notes": [
-      "GitHub states its rates match what the providers charge directly, with no markup on the model layer.",
+      "For GPT-5.6 Sol, Copilot lists $4/$20 per 1M input/output tokens while OpenAI's current direct API rates are $5/$30; keep the two rate cards distinct.",
       "Gemini 3.6, 3.7 and 3.8 Flash all sit at $0.75 input and $3.75 output on a promotional rate that ends 2026-12-31.",
-        "GPT-5.6 Sol, Terra, Luna and GPT-6 Astra, Sol and Luna carry a cache write cost on top of cached input. Earlier OpenAI models do not. Anthropic models all do.",
+        "GPT-5.6 Sol, Terra, Luna and GPT-6 Astra, Sol, Luna and 6.1 Sol carry a cache write cost on top of cached input. Earlier OpenAI models do not. Anthropic models all do.",
       "Copilot code review does not disclose which model it picks, so its per-token cost varies between reviews, and it also consumes GitHub Actions minutes.",
       "Legacy annual Copilot Pro and Pro+ plans on request-based billing still use model multipliers; every current plan is per-token.",
-        "Between 2026-09-05 and 2026-09-23 the table added Grok 4.7 and GPT-6 Sol and Luna, and dropped MAI-Code-1-Flash. Other model rates were unchanged."
+      "GPT-5.3-Codex is GitHub's current base and LTS model for Business and Enterprise, designated 2026-03-18.",
+      "Between September 23 and September 29, Claude Opus 5.5, Claude Sonnet 5.5 and GPT-6.1 Sol were added to the Copilot model and pricing tables."
     ],
     "sources": [
       "github-copilot-pricing",
