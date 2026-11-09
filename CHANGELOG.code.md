@@ -2,6 +2,10 @@
 
 Covers `src/`, `tools/`, `test/`, `prompt/` and build files. Versions 1.0.0 to 1.4.0 are reconstructed from session history; no file snapshot exists for them. 1.5.0 is the first tagged version.
 
+## Unreleased
+
+Added a two-model radar comparison with vendor or Copilot input and output pricing, shared benchmark scores, and the original values and harness details.
+
 ## 1.5.0 — 2026-09-22
 
 Split the monolithic page into `src/template.html`, `src/style.css`, `src/app.js`. Added `tools/build.py` (validate, render, generate the data changelog), `tools/release.py` (separate semver streams, git tags `code-v*` and `data-v*`), a jsdom smoke test as build gate, Makefile, Dockerfile. Page now shows code, data and schema versions and rejects pasted JSON with an unsupported schema major. Dropped Google Fonts: the output has zero runtime network dependencies and falls back to system fonts.

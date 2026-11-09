@@ -37,6 +37,23 @@
   .sw.sq{border-radius:1px}
   .sw.ci{border-radius:50%;background:transparent;border:2px solid var(--muted)}
 
+  .compare-controls{display:flex;flex-wrap:wrap;gap:12px;margin:12px 0}
+  .compare-controls label{display:flex;flex-direction:column;gap:4px;flex:1 1 190px;font-family:var(--mono);font-size:11px;color:var(--muted)}
+  .compare-controls select{width:100%;min-width:0;padding:8px;border:1px solid var(--rule);border-radius:2px;background:var(--panel);color:var(--ink);font:14px var(--sans)}
+  .compare-legend{display:flex;flex-wrap:wrap;gap:16px;margin:12px 0;font-size:13px}
+  .compare-legend span{display:flex;align-items:center;gap:7px}
+  .compare-legend i{width:18px;height:4px;display:inline-block}
+  .compare-plot{max-width:760px;margin-top:8px}
+  .compare-plot svg[hidden]{display:none}
+  .compare-plot p{margin:12px;color:var(--muted);font-size:14px}
+  .compare-table{margin-top:16px}
+  .compare-table td{overflow-wrap:anywhere}
+  .radar-label{font-family:var(--mono);font-size:11px;fill:var(--ink)}
+  .radar-value{font-family:var(--mono);font-size:11px;font-weight:600}
+  .radar-grid{fill:none;stroke:var(--rule-soft);stroke-width:1}
+  .radar-axis{stroke:var(--rule);stroke-width:1}
+  .radar-series{stroke-width:2.5;stroke-linejoin:round}
+
   h2{font-size:19px;font-weight:600;letter-spacing:-0.01em;margin:44px 0 6px;padding-top:14px;border-top:2px solid var(--ink)}
   h2 + p{margin:0 0 16px;color:var(--muted);font-size:14.5px;max-width:64ch}
 
@@ -82,6 +99,7 @@
   footer{margin-top:46px;padding-top:14px;border-top:1px solid var(--rule);font-size:12.5px;color:var(--muted);max-width:66ch}
 
   @media (max-width:560px){
+    .radar-label,.radar-value{font-size:15px}
     .lane{grid-template-columns:1fr;gap:5px}
     table thead{display:none}
     table tr{display:block;padding:12px 0;border-bottom:1px solid var(--rule-soft)}

@@ -82,6 +82,51 @@ test("sources and Copilot tables reflect the data", () => {
   assert.equal(doc.querySelectorAll("#cp-body tr").length, sold);
 });
 
+test("model comparison redraws shared scores and selected pricing", () => {
+  const { dom, doc, errors } = load();
+  for (const id of ["compare-first", "compare-second"]) {
+    const names = [...doc.getElementById(id).options].map((option) => option.textContent);
+    assert.deepEqual(names, [...names].sort((first, second) => first.localeCompare(second)));
+  }
+  const change = (id, value) => {
+    const select = doc.getElementById(id);
+    select.value = value;
+    select.dispatchEvent(new dom.window.Event("change", { bubbles: true }));
+  };
+  change("compare-first", "anthropic-haiku-5-5");
+  change("compare-second", "google-gemini-4-argon");
+  assert.equal(doc.querySelectorAll("#compare-chart .radar-series").length, 2);
+  assert.equal(doc.querySelectorAll("#compare-chart .radar-axis").length, 3);
+  const values = [...doc.querySelectorAll("#compare-chart .radar-value")].map((element) => element.textContent);
+  assert.deepEqual(values, ["$0.1", "$2", "$0.5", "$10", "36.36%", "57.58%"]);
+  const polygons = [...doc.querySelectorAll("#compare-chart .radar-series")];
+  const firstAxisY = polygons.map((polygon) => Number(polygon.getAttribute("points").split(" ")[0].split(",")[1]));
+  assert.ok(Math.abs(firstAxisY[0] - 90) < 0.001, "cheaper input rate reaches the outer ring");
+  assert.ok(Math.abs(firstAxisY[1] - 223) < 0.001, "more expensive input rate is scaled by the price ratio");
+  assert.match(doc.getElementById("compare-body").textContent, /36\.36%/);
+  assert.match(doc.getElementById("compare-body").textContent, /57\.58%/);
+  assert.match(doc.getElementById("compare-body").textContent, /mini-SWE-agent/);
+  change("compare-pricing", "copilot");
+  assert.match(doc.getElementById("compare-body").textContent, /\$0\.1 \/ 1M/);
+  change("compare-second", "google-gemini-4-carbon");
+  assert.equal(doc.getElementById("compare-chart").hidden, true);
+  assert.match(doc.getElementById("compare-empty").textContent, /three shared metrics/);
+  assert.match(doc.getElementById("compare-body").textContent, /Not plotted/);
+  assert.deepEqual(errors, []);
+});
+
+test("model comparison resets removed selections when data is replaced", () => {
+  const { dom, doc, errors } = load();
+  const next = structuredClone(data);
+  next.models = next.models.filter((model) => ![doc.getElementById("compare-first").value, doc.getElementById("compare-second").value].includes(model.id));
+  doc.getElementById("paste").value = JSON.stringify(next);
+  doc.getElementById("apply").dispatchEvent(new dom.window.MouseEvent("click", { bubbles: true }));
+  assert.match(doc.getElementById("msg").textContent, /Redrawn/);
+  assert.ok(next.models.some((model) => model.id === doc.getElementById("compare-first").value));
+  assert.ok(next.models.some((model) => model.id === doc.getElementById("compare-second").value));
+  assert.deepEqual(errors, []);
+});
+
 test("narrow viewport uses the mobile chart geometry", () => {
   const { doc } = load(380);
   assert.match(doc.getElementById("chart").getAttribute("viewBox"), /^0 0 380 /);

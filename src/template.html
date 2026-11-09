@@ -36,6 +36,19 @@
   <span><i class="sw ci"></i>mid / efficient tier</span>
 </div>
 
+<section aria-labelledby="compare-heading">
+  <h2 id="compare-heading">Compare models</h2>
+  <div class="compare-controls">
+    <label>First model<select id="compare-first"></select></label>
+    <label>Second model<select id="compare-second"></select></label>
+    <label>Pricing<select id="compare-pricing"><option value="vendor">Vendor API</option><option value="copilot">GitHub Copilot</option></select></label>
+  </div>
+  <div class="compare-legend" id="compare-legend"></div>
+  <div class="plot compare-plot"><svg id="compare-chart" role="img" aria-label="Model comparison radar chart"></svg><p id="compare-empty" hidden></p></div>
+  <p class="caption">Benchmark scores use their reported percentages. Price axes show the lower price divided by each model's price, so farther out is cheaper. Prices are base rates per million tokens; long-context and promotional rates may differ. Only metrics available for both models appear in the chart; scores may use different harnesses.</p>
+  <div class="compare-table"><table><thead><tr><th>Metric</th><th id="compare-first-heading">First model</th><th id="compare-second-heading">Second model</th></tr></thead><tbody id="compare-body"></tbody></table></div>
+</section>
+
 <h2>The descent ledger</h2>
 <p>Each budget or mid-tier model, matched to the most recent earlier flagship it equals or beats on the selected benchmark. Release dates come from the vendor announcements; the price gap is what GitHub Copilot charges per million output tokens, so it reflects a bill you could actually receive rather than a list price.</p>
 <table><thead><tr><th>Cheap model</th><th>Beats</th><th>Released later</th><th>Output price</th></tr></thead><tbody id="ledger-body"></tbody></table>

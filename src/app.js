@@ -14,7 +14,7 @@
   var VC = { Anthropic:'#A8480B', OpenAI:'#0B6E63', Google:'#4838A0', 'xAI':'#8E2A55' };
   var BIG = { frontier:1, flagship:1 };
   var BENCH_ORDER = ['deepswe','tb40','tb21','swe_pro','programbench','swe_verified','tb20'];
-  var state = { view:'timeline', bench:'deepswe', vendor:'all' };
+  var state = { view:'timeline', bench:'deepswe', vendor:'all', compare:[], pricing:'vendor' };
   var DAY = 864e5;
 
   function d2n(s){ var p=s.split('-'); return Date.UTC(+p[0],+p[1]-1,+p[2]); }
@@ -301,6 +301,103 @@
     }).join('');
   }
 
+  function renderComparison(){
+    var models = DATA.models || [];
+    var first = document.getElementById('compare-first'), second = document.getElementById('compare-second');
+    var pricing = document.getElementById('compare-pricing');
+    function find(id){ return models.filter(function(m){ return m.id===id; })[0]; }
+    if(!find(state.compare[0])) state.compare[0] = models.length ? models[0].id : '';
+    if(!find(state.compare[1])){
+      var firstModel = find(state.compare[0]);
+      var match = models.filter(function(m){
+        return m.id!==state.compare[0] && Object.keys(DATA.benchmarks).some(function(b){
+          return firstModel && firstModel.scores && firstModel.scores[b] && m.scores && m.scores[b];
+        });
+      })[0];
+      state.compare[1] = match ? match.id : (models[1] || models[0] || {}).id || '';
+    }
+    [first,second].forEach(function(select,index){
+      select.innerHTML = models.slice().sort(function(a,b){ return a.name.localeCompare(b.name); }).map(function(m){ return '<option value="'+esc(m.id)+'">'+esc(m.name)+'</option>'; }).join('');
+      select.value = state.compare[index];
+      select.onchange = function(){ state.compare[index]=select.value; renderComparison(); };
+    });
+    pricing.value = state.pricing;
+    pricing.onchange = function(){ state.pricing=pricing.value; renderComparison(); };
+    var selected = [find(state.compare[0]),find(state.compare[1])];
+    var chart = document.getElementById('compare-chart'), empty = document.getElementById('compare-empty');
+    if(!selected[0] || !selected[1]){
+      chart.innerHTML=''; chart.hidden=true; empty.hidden=false; empty.textContent='No models available to compare.';
+      document.getElementById('compare-body').innerHTML='';
+      document.getElementById('compare-legend').innerHTML='';
+      return;
+    }
+    document.getElementById('compare-first-heading').textContent=selected[0].name;
+    document.getElementById('compare-second-heading').textContent=selected[1].name;
+    var colors=['#0B6E63','#A8480B'];
+    document.getElementById('compare-legend').innerHTML=selected.map(function(m,index){
+      return '<span><i style="background:'+colors[index]+'"></i>'+esc(m.name)+'</span>';
+    }).join('');
+    function price(model,key){
+      var value = state.pricing==='copilot' ? (model.copilot && model.copilot.available ? model.copilot[key] : null) : model['price_'+(key==='input'?'in':'out')];
+      return typeof value==='number' && isFinite(value) && value>=0 ? value : null;
+    }
+    var metrics = ['input','output'].map(function(key){
+      return { label:(key==='input'?'Input':'Output')+' price', values:selected.map(function(m){return price(m,key);}), price:true };
+    });
+    Object.keys(DATA.benchmarks).forEach(function(key){
+      var def=DATA.benchmarks[key];
+      var scores=selected.map(function(m){return m.scores && m.scores[key];});
+      if(!scores[0] && !scores[1]) return;
+      metrics.push({ label:def.name+(def.version?' '+def.version:''), scores:scores, values:scores.map(function(score){
+        return score && typeof score.value==='number' && isFinite(score.value) && score.value>=0 && score.value<=100 ? score.value : null;
+      }) });
+    });
+    var shared=metrics.filter(function(metric){return metric.values[0]!==null && metric.values[1]!==null;});
+    document.getElementById('compare-body').innerHTML=metrics.map(function(metric){
+      return '<tr><td class="now" data-l="metric">'+esc(metric.label)+(shared.indexOf(metric)<0?'<span class="src">Not plotted: missing comparable data</span>':'')+'</td>'+metric.values.map(function(value,index){
+        var score=metric.scores && metric.scores[index];
+        var detail=score ? '<span class="src">'+esc(score.harness||'Harness not specified')+' / '+esc(score.effort||'effort not specified')+'</span>' : '';
+        return '<td data-l="'+esc(selected[index].name)+'" class="num">'+(value===null?'-':metric.price?'$'+value+' / 1M':value+'%')+detail+'</td>';
+      }).join('')+'</tr>';
+    }).join('');
+    if(shared.length<3){
+      chart.innerHTML=''; chart.hidden=true; empty.hidden=false; empty.textContent='At least three shared metrics are needed for a radar chart.'; return;
+    }
+    chart.hidden=false; empty.hidden=true;
+    var cx=300, cy=230, radius=140, count=shared.length;
+    function point(index,scale){
+      var angle=-Math.PI/2+index*2*Math.PI/count;
+      return [cx+Math.cos(angle)*radius*scale,cy+Math.sin(angle)*radius*scale];
+    }
+    function points(scale){return shared.map(function(metric,index){return point(index,scale).join(',');}).join(' ');}
+    var svg=[];
+    [0.25,0.5,0.75,1].forEach(function(scale){svg.push('<polygon class="radar-grid" points="'+points(scale)+'"/>');});
+    shared.forEach(function(metric,index){
+      var edge=point(index,1), label=point(index,1.18), dx=label[0]-cx;
+      var labelY=label[1] < cy ? label[1]-28 : label[1];
+      var anchor=dx>15?'start':dx< -15?'end':'middle';
+      svg.push('<line class="radar-axis" x1="'+cx+'" y1="'+cy+'" x2="'+edge[0]+'" y2="'+edge[1]+'"/>');
+      svg.push('<text class="radar-label" x="'+label[0]+'" y="'+labelY+'" text-anchor="'+anchor+'" dominant-baseline="middle">'+esc(metric.label.replace('Terminal-Bench','TB').replace('SWE-bench','SWE'))+'</text>');
+      metric.values.forEach(function(value,modelIndex){
+        var formatted=metric.price ? '$'+value : value+'%';
+        svg.push('<text class="radar-value" data-model="'+esc(selected[modelIndex].id)+'" x="'+label[0]+'" y="'+(labelY+14*(modelIndex+1))+'" text-anchor="'+anchor+'" dominant-baseline="middle" fill="'+colors[modelIndex]+'">'+esc(formatted)+'</text>');
+      });
+    });
+    selected.forEach(function(model,modelIndex){
+      var vertices=shared.map(function(metric,index){
+        var value=metric.values[modelIndex], scale;
+        if(metric.price){
+          var min=Math.min.apply(null,metric.values);
+          scale=value===0 ? 1 : min/value;
+        }else scale=value/100;
+        return point(index,scale).join(',');
+      }).join(' ');
+      svg.push('<polygon class="radar-series" data-model="'+esc(model.id)+'" points="'+vertices+'" fill="'+colors[modelIndex]+'" fill-opacity="0.16" stroke="'+colors[modelIndex]+'"><title>'+esc(model.name)+'</title></polygon>');
+    });
+    chart.setAttribute('viewBox','0 0 600 470');
+    chart.innerHTML=svg.join('');
+  }
+
   /* ---------- Copilot price table ---------- */
   function renderCopilot(){
     var meta = DATA.copilot_meta || {};
@@ -407,7 +504,7 @@
     }catch(e){ msg.textContent = 'Could not parse that: '+e.message; }
   };
 
-  function drawAll(){ render(); renderCopilot(); renderLanes(); renderSources(); renderRest(); }
+  function drawAll(){ render(); renderComparison(); renderCopilot(); renderLanes(); renderSources(); renderRest(); }
   var rt;
   window.addEventListener('resize', function(){ clearTimeout(rt); rt=setTimeout(render,150); });
   drawAll();
