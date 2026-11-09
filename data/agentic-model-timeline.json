@@ -1,10 +1,10 @@
 {
   "schema_version": "1.2",
-  "data_version": "1.2.3",
-  "generated_at": "2026-09-29",
+  "data_version": "1.3.0",
+  "generated_at": "2026-11-09",
   "window": {
     "from": "2026-01-01",
-    "to": "2026-09-29"
+    "to": "2026-11-09"
   },
   "benchmarks": {
     "tb21": {
@@ -72,7 +72,7 @@
           "confidence": "medium"
         }
       },
-      "notes": "Anthropic shipped no new Haiku-tier model in the window. The cheap Anthropic lane is 11 months stale as of this snapshot.",
+      "notes": "Pre-window baseline for the Haiku line; Haiku 5.5 followed on October 7, 2026.",
       "sources": [
         "https://programbench.com/"
       ],
@@ -1935,16 +1935,17 @@
           "value": 64.14,
           "vendor_value": 70.6,
           "harness": "mini-SWE-agent (Vals AI); Anthropic-reported",
-          "effort": "max / medium",
+          "effort": "max / max",
           "source": "https://www.vals.ai/benchmarks/terminal-bench-4",
           "confidence": "medium",
           "standardized_value": 64.14,
           "standardized_source": "https://www.vals.ai/benchmarks/terminal-bench-4"
         }
       },
-      "notes": "1M context, 128K max output. Anthropic reports 70.6% on Terminal-Bench 4.0; its announcement describes the medium-effort score. Vals' Sep 29 standardized mini-SWE-agent run reports 64.14% at max effort. API pricing is $2/$10 per 1M input/output tokens.",
+      "notes": "1M context, 128K max output. Anthropic reports 70.6% on Terminal-Bench 4.0 at max effort. Vals' standardized mini-SWE-agent run reports 64.14% at max effort. API pricing is $2/$10 per 1M input/output tokens; cache reads fell from $0.20 to $0.10 per million on October 7.",
       "sources": [
         "https://www.anthropic.com/claude-sonnet-5-5",
+        "https://www.anthropic.com/claude-haiku-5-5",
         "https://platform.claude.com/docs/en/models/sonnet-5-5/overview",
         "https://www.vals.ai/benchmarks/terminal-bench-4"
       ],
@@ -1953,7 +1954,7 @@
         "release_status": "GA",
         "category": "Versatile",
         "input": 2.0,
-        "cached_input": 0.2,
+        "cached_input": 0.1,
         "cache_write": 2.5,
         "output": 10.0,
         "long_context": null,
@@ -1972,8 +1973,18 @@
       "context_window": 1050000,
       "price_in": 2.0,
       "price_out": 10.0,
-      "scores": {},
-      "notes": "API model ID gpt-6.1-sol; 922K maximum input and 128K maximum output. OpenAI describes a DeepSWE v1.1 result but does not publish its exact score in the announcement, and the public leaderboard had not yet added the model as of September 29. No benchmark score is recorded pending a published value.",
+      "scores": {
+        "tb40": {
+          "value": 55.05,
+          "vendor_value": null,
+          "harness": "mini-SWE-agent (Vals AI)",
+          "effort": "not specified on leaderboard",
+          "source": "https://www.vals.ai/benchmarks/terminal-bench-4",
+          "confidence": "high",
+          "cost_per_task": 1.72
+        }
+      },
+      "notes": "API model ID gpt-6.1-sol; 922K maximum input and 128K maximum output. Vals reports 55.05% on Terminal-Bench 4.0. No independent DeepSWE score was found on the September 22 leaderboard.",
       "sources": [
         "https://openai.com/index/introducing-gpt-6-1-sol/",
         "https://developers.openai.com/api/docs/models/gpt-6.1-sol"
@@ -1996,9 +2007,195 @@
         "promo": null,
         "source": "github-copilot-pricing"
       }
+    },
+    {
+      "id": "anthropic-haiku-5-5",
+      "vendor": "Anthropic",
+      "name": "Claude Haiku 5.5",
+      "tier": "efficient",
+      "released": "2026-10-07",
+      "availability": "ga",
+      "anchor": false,
+      "context_window": 1000000,
+      "price_in": 0.1,
+      "price_out": 0.5,
+      "scores": {
+        "tb40": {
+          "value": 36.36,
+          "vendor_value": 39.2,
+          "harness": "mini-SWE-agent (Vals AI) / Anthropic self-report",
+          "effort": "max / max",
+          "source": "https://www.vals.ai/models/anthropic_claude-haiku-5-5",
+          "confidence": "high"
+        }
+      },
+      "notes": "1M context and 128K maximum output. API pricing increases to $0.50/$2.50 per million for prompts over 100K tokens. Anthropic reports 39.2% on Terminal-Bench 4.0 at max effort; Vals reports 36.36% under its own harness.",
+      "sources": [
+        "https://www.anthropic.com/claude-haiku-5-5",
+        "https://platform.claude.com/docs/en/models/haiku-5-5/overview",
+        "https://www.vals.ai/models/anthropic_claude-haiku-5-5"
+      ],
+      "copilot": {
+        "available": true,
+        "release_status": "GA",
+        "category": "Lightweight",
+        "input": 0.1,
+        "cached_input": 0.01,
+        "cache_write": 0.125,
+        "output": 0.5,
+        "long_context": {
+          "threshold": 100000,
+          "input": 0.5,
+          "cached_input": 0.05,
+          "cache_write": 0.625,
+          "output": 2.5
+        },
+        "promo": null,
+        "source": "github-copilot-pricing"
+      }
+    },
+    {
+      "id": "google-gemini-4-argon",
+      "vendor": "Google",
+      "name": "Gemini 4 Argon",
+      "tier": "flagship",
+      "released": "2026-10-13",
+      "availability": "ga",
+      "anchor": false,
+      "context_window": 1000000,
+      "price_in": 2.0,
+      "price_out": 10.0,
+      "scores": {
+        "tb40": {
+          "value": 57.58,
+          "vendor_value": null,
+          "harness": "mini-SWE-agent (Vals AI)",
+          "effort": "high",
+          "source": "https://www.vals.ai/benchmarks/terminal-bench-4",
+          "confidence": "high",
+          "cost_per_task": 17.64
+        }
+      },
+      "notes": "Google announced introductory API pricing of $2/$10 per million tokens; Vals lists $4/$20. The 1M limit is unified input and output. Copilot's introductory price runs until December 1, 2026.",
+      "sources": [
+        "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/",
+        "https://www.vals.ai/models/google_gemini-4-argon"
+      ],
+      "copilot": {
+        "available": true,
+        "release_status": "GA",
+        "category": "Powerful",
+        "input": 2.0,
+        "cached_input": 0.1,
+        "cache_write": null,
+        "output": 10.0,
+        "long_context": null,
+        "promo": "Introductory rates until 2026-12-01",
+        "source": "github-copilot-pricing"
+      }
+    },
+    {
+      "id": "openai-gpt-6-1-terra",
+      "vendor": "OpenAI",
+      "name": "GPT-6.1 Terra",
+      "tier": "mid",
+      "released": "2026-10-26",
+      "availability": "ga",
+      "anchor": false,
+      "context_window": 1000000,
+      "price_in": 1.0,
+      "price_out": 5.0,
+      "scores": {
+        "tb40": {
+          "value": 49.49,
+          "vendor_value": null,
+          "harness": "mini-SWE-agent (Vals AI)",
+          "effort": "max",
+          "source": "https://www.vals.ai/benchmarks/terminal-bench-4",
+          "confidence": "high",
+          "cost_per_task": 2.16
+        }
+      },
+      "notes": "Release date, approximate 1M context and API prices are reported by Vals. Above 272K input tokens, Vals reports $2/$7.50 per million input/output tokens.",
+      "sources": [
+        "https://www.vals.ai/models/openai_gpt-6.1-terra",
+        "https://www.vals.ai/benchmarks/terminal-bench-4"
+      ],
+      "copilot": {
+        "available": true,
+        "release_status": "GA",
+        "category": "Versatile",
+        "input": 1.0,
+        "cached_input": 0.05,
+        "cache_write": 1.25,
+        "output": 5.0,
+        "long_context": {
+          "threshold": 272000,
+          "input": 2.0,
+          "cached_input": 0.1,
+          "cache_write": 2.5,
+          "output": 7.5
+        },
+        "promo": null,
+        "source": "github-copilot-pricing"
+      }
+    },
+    {
+      "id": "google-gemini-4-carbon",
+      "vendor": "Google",
+      "name": "Gemini 4 Carbon",
+      "tier": "frontier",
+      "released": "2026-10-28",
+      "availability": "restricted",
+      "anchor": false,
+      "context_window": 1000000,
+      "price_in": 2.0,
+      "price_out": 10.0,
+      "scores": {
+        "tb40": {
+          "value": 63.13,
+          "vendor_value": null,
+          "harness": "mini-SWE-agent (Vals AI)",
+          "effort": "high",
+          "source": "https://www.vals.ai/benchmarks/terminal-bench-4",
+          "confidence": "high",
+          "cost_per_task": 7.45
+        }
+      },
+      "notes": "Initially limited to selected cyber defenders and trusted partners. Google announced future introductory API pricing of $2/$10 per million tokens; Vals lists $4/$20. Context window reported by Vals.",
+      "sources": [
+        "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-carbon/",
+        "https://www.vals.ai/models/google_gemini-4-carbon"
+      ],
+      "copilot": {
+        "available": false,
+        "note": "Not listed in GitHub's pricing table as of 2026-11-09.",
+        "source": "github-copilot-pricing"
+      }
     }
   ],
   "conflicts": [
+    {
+      "model": "anthropic-haiku-5-5",
+      "benchmark": "tb40",
+      "values": [36.36, 39.2],
+      "sources": ["https://www.vals.ai/models/anthropic_claude-haiku-5-5", "https://www.anthropic.com/claude-haiku-5-5"],
+      "note": "Vals and Anthropic report different runs and harnesses, both at max effort; do not average them."
+    },
+    {
+      "model": "google-gemini-4-argon",
+      "benchmark": "pricing",
+      "values": ["$2/$10 per million input/output (Google introductory)", "$4/$20 (Vals)"],
+      "sources": ["https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/", "https://www.vals.ai/models/google_gemini-4-argon"],
+      "note": "Google's introductory rate and Vals' listed rate differ; benchmark cost may use a different price basis."
+    },
+    {
+      "model": "google-gemini-4-carbon",
+      "benchmark": "pricing",
+      "values": ["$2/$10 per million input/output (Google announced introductory)", "$4/$20 (Vals)"],
+      "sources": ["https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-carbon/", "https://www.vals.ai/models/google_gemini-4-carbon"],
+      "note": "Google's future introductory rate and Vals' listed rate differ; access remains restricted."
+    },
     {
       "model": "anthropic-opus-4-8",
       "benchmark": "tb21",
@@ -2236,6 +2433,12 @@
       "date": "2026-09-29",
       "snapshot": true,
       "change": "Extended the snapshot through September 29. Added Claude Opus 5.5, Claude Sonnet 5.5 and GPT-6.1 Sol; refreshed Vals Terminal-Bench 4.0 standardized scores for tracked models and recorded Grok 4.7 and GPT-6 Sol discrepancies. Refreshed GitHub Copilot rates, plan allowances, source dates and LTS metadata; recorded benchmark and GPT-5.6 Sol API/Copilot price conflicts."
+    },
+    {
+      "version": "1.3.0",
+      "date": "2026-11-09",
+      "snapshot": true,
+      "change": "Added Claude Haiku 5.5, Gemini 4 Argon, GPT-6.1 Terra and restricted Gemini 4 Carbon with available Terminal-Bench 4.0 scores and Copilot rates. Added GPT-6.1 Sol's Vals score, corrected Sonnet 5.5 cache-read pricing and benchmark effort, and documented Haiku score and Gemini pricing discrepancies."
     }
   ],
   "sources": [
@@ -2244,7 +2447,7 @@
       "title": "Models and pricing for GitHub Copilot",
       "publisher": "GitHub Docs",
       "url": "https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing",
-      "accessed": "2026-09-29",
+      "accessed": "2026-11-09",
       "type": "vendor-docs",
       "use": "Copilot per-token rates, release status, category and long-context thresholds for every model in the Copilot catalogue"
     },
@@ -2577,7 +2780,7 @@
       "title": "Terminal-Bench 4.0",
       "publisher": "Vals AI",
       "url": "https://www.vals.ai/benchmarks/terminal-bench-4",
-      "accessed": "2026-09-29",
+      "accessed": "2026-11-09",
       "type": "standardized-eval",
       "use": "TB 4.0 standardized mini-SWE-agent runs for cross-vendor comparison; cost per task"
     },
@@ -2586,7 +2789,7 @@
       "title": "DeepSWE v1.1 leaderboard",
       "publisher": "Datacurve",
       "url": "https://deepswe.datacurve.ai/",
-      "accessed": "2026-09-29",
+      "accessed": "2026-11-09",
       "type": "standardized-eval",
       "use": "Long-horizon SWE, one harness for all models, pass@1 with cost per task"
     },
@@ -2649,9 +2852,81 @@
       "title": "Base and long-term support (LTS) models",
       "publisher": "GitHub Docs",
       "url": "https://docs.github.com/en/copilot/concepts/models/fallback-and-lts-models",
-      "accessed": "2026-09-29",
+      "accessed": "2026-11-09",
       "type": "vendor-docs",
       "use": "Copilot base and LTS model designation"
+    },
+    {
+      "id": "anthropic-haiku55",
+      "title": "Introducing Claude Haiku 5.5",
+      "publisher": "Anthropic",
+      "url": "https://www.anthropic.com/claude-haiku-5-5",
+      "accessed": "2026-11-09",
+      "type": "vendor-announcement",
+      "use": "Haiku 5.5 release, pricing and vendor benchmark; Sonnet 5.5 cache-read price cut"
+    },
+    {
+      "id": "anthropic-haiku55-docs",
+      "title": "Claude Haiku 5.5 overview",
+      "publisher": "Anthropic",
+      "url": "https://platform.claude.com/docs/en/models/haiku-5-5/overview",
+      "accessed": "2026-11-09",
+      "type": "vendor-docs",
+      "use": "Haiku 5.5 model ID, context, availability and tiered API prices"
+    },
+    {
+      "id": "google-gemini4-argon",
+      "title": "Gemini 4 Argon: Built to solve your hardest problems",
+      "publisher": "Google",
+      "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/",
+      "accessed": "2026-11-09",
+      "type": "vendor-announcement",
+      "use": "Argon release, context and introductory API pricing"
+    },
+    {
+      "id": "google-gemini4-carbon",
+      "title": "Gemini 4 Carbon: our next frontier model",
+      "publisher": "Google",
+      "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-carbon/",
+      "accessed": "2026-11-09",
+      "type": "vendor-announcement",
+      "use": "Carbon release, restricted availability and announced introductory pricing"
+    },
+    {
+      "id": "vals-gpt61terra",
+      "title": "GPT-6.1 Terra model profile",
+      "publisher": "Vals AI",
+      "url": "https://www.vals.ai/models/openai_gpt-6.1-terra",
+      "accessed": "2026-11-09",
+      "type": "standardized-eval",
+      "use": "GPT-6.1 Terra release date, context, API pricing and evaluation effort"
+    },
+    {
+      "id": "vals-haiku55",
+      "title": "Claude Haiku 5.5 model profile",
+      "publisher": "Vals AI",
+      "url": "https://www.vals.ai/models/anthropic_claude-haiku-5-5",
+      "accessed": "2026-11-09",
+      "type": "standardized-eval",
+      "use": "Haiku 5.5 Terminal-Bench 4.0 score and evaluation effort"
+    },
+    {
+      "id": "vals-gemini4-argon",
+      "title": "Gemini 4 Argon model profile",
+      "publisher": "Vals AI",
+      "url": "https://www.vals.ai/models/google_gemini-4-argon",
+      "accessed": "2026-11-09",
+      "type": "standardized-eval",
+      "use": "Argon evaluation effort and Vals' listed pricing"
+    },
+    {
+      "id": "vals-gemini4-carbon",
+      "title": "Gemini 4 Carbon model profile",
+      "publisher": "Vals AI",
+      "url": "https://www.vals.ai/models/google_gemini-4-carbon",
+      "accessed": "2026-11-09",
+      "type": "standardized-eval",
+      "use": "Carbon context, evaluation effort and Vals' listed pricing"
     }
   ],
   "copilot_catalog_extra": [
@@ -2724,7 +2999,7 @@
   ],
   "copilot_meta": {
     "source": "github-copilot-pricing",
-    "fetched": "2026-09-29",
+    "fetched": "2026-11-09",
     "billing": "Usage-based, priced per million tokens. Input, cached input and output tokens convert to GitHub AI Credits at each model's published rate, 1 AI credit = $0.01. Individual paid plans have monthly base and flex credits; Business and Enterprise allowances are pooled at the billing entity. Additional usage is billed at published per-token rates. Code completions and next edit suggestions are not billed in AI credits.",
     "plans": {
       "Copilot Free": "AI credit allowance; amount not specified on the checked billing page",
@@ -2736,8 +3011,8 @@
     },
       "notes": [
       "For GPT-5.6 Sol, Copilot lists $4/$20 per 1M input/output tokens while OpenAI's current direct API rates are $5/$30; keep the two rate cards distinct.",
-      "Gemini 3.6, 3.7 and 3.8 Flash all sit at $0.75 input and $3.75 output on a promotional rate that ends 2026-12-31.",
-        "GPT-5.6 Sol, Terra, Luna and GPT-6 Astra, Sol, Luna and 6.1 Sol carry a cache write cost on top of cached input. Earlier OpenAI models do not. Anthropic models all do.",
+      "GitHub lists Gemini 3.8 Flash at $0.75 input and $3.75 output through 2026-12-31, and Gemini 4 Argon at $2/$10 until 2026-12-01.",
+        "GPT-5.6 Sol, Terra, Luna and GPT-6 Astra, Sol, Luna, 6.1 Sol and 6.1 Terra carry a cache write cost on top of cached input. Earlier OpenAI models do not. Anthropic models all do.",
       "Copilot code review does not disclose which model it picks, so its per-token cost varies between reviews, and it also consumes GitHub Actions minutes.",
       "Legacy annual Copilot Pro and Pro+ plans on request-based billing still use model multipliers; every current plan is per-token.",
       "GPT-5.3-Codex is GitHub's current base and LTS model for Business and Enterprise, designated 2026-03-18.",

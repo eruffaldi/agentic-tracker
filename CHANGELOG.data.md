@@ -4,6 +4,10 @@ Generated from `data/agentic-model-timeline.json` by `tools/build.py`. Do not ed
 
 Versions marked *reconstructed* were rebuilt from session history; no file snapshot exists for them.
 
+## 1.3.0 — 2026-11-09
+
+Added Claude Haiku 5.5, Gemini 4 Argon, GPT-6.1 Terra and restricted Gemini 4 Carbon with available Terminal-Bench 4.0 scores and Copilot rates. Added GPT-6.1 Sol's Vals score, corrected Sonnet 5.5 cache-read pricing and benchmark effort, and documented Haiku score and Gemini pricing discrepancies.
+
 ## 1.2.3 — 2026-09-29
 
 Extended the snapshot through September 29. Added Claude Opus 5.5, Claude Sonnet 5.5 and GPT-6.1 Sol; refreshed Vals Terminal-Bench 4.0 standardized scores for tracked models and recorded Grok 4.7 and GPT-6 Sol discrepancies. Refreshed GitHub Copilot rates, plan allowances, source dates and LTS metadata; recorded benchmark and GPT-5.6 Sol API/Copilot price conflicts.
